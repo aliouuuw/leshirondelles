@@ -1,4 +1,12 @@
 import type { Block, CollectionConfig } from "payload";
+import {
+  TeacherProfileBlock,
+  SchoolLevelBlock,
+  GalleryBlock,
+  TestimonialBlock,
+  ContactFormBlock,
+  CalendarBlock,
+} from "../blocks";
 
 // Define Block Types
 
@@ -183,7 +191,18 @@ export const Pages: CollectionConfig = {
       label: "Page Content",
       type: "blocks",
       minRows: 1,
-      blocks: [HeroBlock, RichTextBlock, ImageBlock, CallToActionBlock],
+      blocks: [
+        HeroBlock,
+        RichTextBlock,
+        ImageBlock,
+        CallToActionBlock,
+        TeacherProfileBlock,
+        SchoolLevelBlock,
+        GalleryBlock,
+        TestimonialBlock,
+        ContactFormBlock,
+        CalendarBlock,
+      ],
       localized: true,
     },
     {

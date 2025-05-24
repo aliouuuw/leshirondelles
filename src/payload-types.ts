@@ -237,6 +237,92 @@ export interface Page {
             blockName?: string | null;
             blockType: 'callToAction';
           }
+        | {
+            title?: string | null;
+            description?: string | null;
+            staff: (number | Staff)[];
+            layout?: ('grid' | 'list') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'teacherProfile';
+          }
+        | {
+            title?: string | null;
+            description?: string | null;
+            level: number | Level;
+            showCurriculum?: boolean | null;
+            showGallery?: boolean | null;
+            callToAction: {
+              label: string;
+              linkType: 'internal' | 'external';
+              internalLink?: (number | null) | Page;
+              externalUrl?: string | null;
+              style?: ('primary' | 'secondary') | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'schoolLevel';
+          }
+        | {
+            title?: string | null;
+            description?: string | null;
+            images: {
+              image: number | Media;
+              caption?: string | null;
+              id?: string | null;
+            }[];
+            layout?: ('grid' | 'masonry' | 'carousel') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'gallery';
+          }
+        | {
+            title?: string | null;
+            testimonials: {
+              quote: string;
+              author: string;
+              role?: string | null;
+              image?: (number | null) | Media;
+              id?: string | null;
+            }[];
+            layout?: ('grid' | 'carousel' | 'list') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'testimonial';
+          }
+        | {
+            title?: string | null;
+            description?: string | null;
+            fields: {
+              name: string;
+              type: 'text' | 'email' | 'tel' | 'textarea';
+              required?: boolean | null;
+              label?: string | null;
+              placeholder?: string | null;
+              id?: string | null;
+            }[];
+            submitLabel?: string | null;
+            successMessage?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contactForm';
+          }
+        | {
+            title?: string | null;
+            description?: string | null;
+            events: {
+              title: string;
+              date: string;
+              endDate?: string | null;
+              description?: string | null;
+              location?: string | null;
+              type?: ('academic' | 'event' | 'holiday') | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'calendar';
+          }
       )[]
     | null;
   /**
@@ -509,6 +595,108 @@ export interface PagesSelect<T extends boolean = true> {
                     internalLink?: T;
                     externalUrl?: T;
                     style?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        teacherProfile?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              staff?: T;
+              layout?: T;
+              id?: T;
+              blockName?: T;
+            };
+        schoolLevel?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              level?: T;
+              showCurriculum?: T;
+              showGallery?: T;
+              callToAction?:
+                | T
+                | {
+                    label?: T;
+                    linkType?: T;
+                    internalLink?: T;
+                    externalUrl?: T;
+                    style?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        gallery?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    caption?: T;
+                    id?: T;
+                  };
+              layout?: T;
+              id?: T;
+              blockName?: T;
+            };
+        testimonial?:
+          | T
+          | {
+              title?: T;
+              testimonials?:
+                | T
+                | {
+                    quote?: T;
+                    author?: T;
+                    role?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              layout?: T;
+              id?: T;
+              blockName?: T;
+            };
+        contactForm?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              fields?:
+                | T
+                | {
+                    name?: T;
+                    type?: T;
+                    required?: T;
+                    label?: T;
+                    placeholder?: T;
+                    id?: T;
+                  };
+              submitLabel?: T;
+              successMessage?: T;
+              id?: T;
+              blockName?: T;
+            };
+        calendar?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              events?:
+                | T
+                | {
+                    title?: T;
+                    date?: T;
+                    endDate?: T;
+                    description?: T;
+                    location?: T;
+                    type?: T;
                     id?: T;
                   };
               id?: T;
