@@ -52,15 +52,15 @@ const renderBlock = (block: any, index: number) => {
   }
 };
 
-// Static data for the homepage
+// Updated static data for the Hero section
 const heroData = {
-  title: "Bienvenue à l'Institution Les Hirondelles",
+  title: "Former les leaders de demain au Sénégal",
   subtitle:
-    "Formant les leaders de demain au Sénégal - De la maternelle au collège",
-  backgroundImage: { url: "/images/school-hero.jpg" } as any, // Mock Media object
+    "De la maternelle au collège, nous cultivons l'excellence, l'intégrité et l'esprit communautaire.",
+  backgroundImage: { url: "/images/hero-school.jpg" }, // Ensure you have this high-quality image in your public/images folder
   buttons: [
     { label: "Découvrir nos programmes", link: "/programs" },
-    { label: "Nous contacter", link: "/contact" },
+    { label: "Planifier une visite", link: "/visit" },
   ],
   blockType: "hero" as const,
 };
@@ -158,47 +158,47 @@ const newsEvents = [
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-      {/* Navigation Header */}
-      <header className="bg-white shadow-lg sticky top-0 z-50 border-b border-school-blue/10">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-school-blue rounded-full flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-lg">LH</span>
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-school-blue">
-                  Les Hirondelles
-                </h1>
-                <p className="text-sm text-school-yellow font-medium">
-                  Institution d'Excellence
-                </p>
-              </div>
+    <div className="min-h-screen bg-white">
+      {/* Fixed Modern Header */}
+      <header className="header-fixed">
+        <div className="header-container">
+          {/* Logo Section */}
+          <div className="header-logo">
+            <div className="header-logo-icon">
+              <span className="text-white font-bold text-lg">LH</span>
             </div>
+            <div className="header-logo-text">
+              <h1 className="header-logo-title">Les Hirondelles</h1>
+              <p className="header-logo-subtitle">Institution d'Excellence</p>
+            </div>
+          </div>
 
-            <nav className="hidden md:flex space-x-8">
-              <a href="/" className="nav-link active">
-                Accueil
-              </a>
-              <a href="/about" className="nav-link">
-                À propos
-              </a>
-              <a href="/programs" className="nav-link">
-                Programmes
-              </a>
-              <a href="/admissions" className="nav-link">
-                Admissions
-              </a>
-              <a href="/life" className="nav-link">
-                Vie scolaire
-              </a>
-              <a href="/contact" className="nav-link">
-                Contact
-              </a>
-            </nav>
+          {/* Navigation */}
+          <nav className="header-nav">
+            <a href="/" className="nav-link-modern active">
+              Accueil
+            </a>
+            <a href="/about" className="nav-link-modern">
+              À propos
+            </a>
+            <a href="/programs" className="nav-link-modern">
+              Programmes
+            </a>
+            <a href="/admissions" className="nav-link-modern">
+              Admissions
+            </a>
+            <a href="/life" className="nav-link-modern">
+              Vie scolaire
+            </a>
+            <a href="/contact" className="nav-link-modern">
+              Contact
+            </a>
+          </nav>
 
-            <button className="md:hidden p-2 text-school-blue hover:bg-school-blue-light rounded-lg transition-colors">
+          {/* Actions */}
+          <div className="header-actions">
+            <button className="btn-primary">Inscription</button>
+            <button className="header-menu-button">
               <svg
                 className="w-6 h-6"
                 fill="none"
@@ -217,135 +217,105 @@ export default function HomePage() {
         </div>
       </header>
 
-      <main className="flex-grow">
-        {/* Hero Section */}
-        <Hero {...heroData} />
-
-        {/* Quick Links Section */}
-        <section className="py-16 section-yellow">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12 animate-fade-in-up">
-              <h2 className="text-3xl font-bold text-school-blue mb-4">
-                Accès Rapide
-              </h2>
-              <p className="text-gray-600">
-                Trouvez rapidement ce que vous cherchez
+      {/* Main Content with proper padding */}
+      <main className="main-content">
+        {/* Modern Hero Section */}
+        <section className="hero-modern">
+          <div className="relative z-10 px-6 lg:px-12">
+            <div className="max-w-2xl">
+              <h1 className="display-text hero-text-white mb-6">
+                Formant les
+                <span className="text-school-yellow block">Leaders</span>
+                de Demain
+              </h1>
+              <p className="text-large text-white/90 mb-8 leading-relaxed">
+                L'Institution Les Hirondelles offre une éducation d'excellence
+                du préscolaire au collège, cultivant l'excellence académique et
+                les valeurs humaines.
               </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button className="btn-primary">
+                  Découvrir nos programmes
+                </button>
+                <button className="btn-outline text-white border-white hover:bg-white hover:text-school-blue">
+                  Planifier une visite
+                </button>
+              </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {quickLinks.map((link, index) => (
-                <a key={index} href={link.link} className="card group">
-                  <div className="p-6">
-                    <div className="icon-blue mb-4 group-hover:scale-110 transition-transform">
-                      {link.icon}
-                    </div>
-                    <h3 className="text-lg font-semibold text-school-blue mb-2">
-                      {link.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm">{link.description}</p>
-                  </div>
-                </a>
-              ))}
-            </div>
+          </div>
+          <div className="relative z-10 hidden lg:block">
+            <img
+              src="/images/hero-students.jpg"
+              alt="Élèves Les Hirondelles"
+              className="w-full h-full object-cover"
+            />
           </div>
         </section>
 
-        {/* About Preview Section */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="animate-slide-in-left">
-                <h2 className="text-3xl font-bold text-school-blue mb-6">
-                  Notre Mission
-                </h2>
-                <div className="accent-yellow pl-6">
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    L'Institution Les Hirondelles s'engage à offrir une
-                    éducation de qualité qui forme les citoyens de demain. Nous
-                    cultivons l'excellence académique tout en développant les
-                    valeurs humaines essentielles : respect, intégrité,
-                    solidarité et persévérance.
-                  </p>
-                  <p className="text-gray-600 mb-8 leading-relaxed">
-                    Depuis notre création, nous accompagnons chaque élève dans
-                    son épanouissement personnel et sa réussite scolaire, de la
-                    maternelle au collège.
-                  </p>
-                </div>
-                <a
-                  href="/about"
-                  className="btn-primary inline-flex items-center"
-                >
-                  En savoir plus
-                  <svg
-                    className="ml-2 w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </a>
+        {/* Statistics Section */}
+        <section className="stats-modern">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid-modern grid-4">
+              <div className="stat-item">
+                <div className="stat-number">20+</div>
+                <div className="stat-label">Années d'Excellence</div>
               </div>
-              <div className="relative animate-slide-in-right">
-                <img
-                  src="/images/about-preview.jpg"
-                  alt="Élèves de Les Hirondelles"
-                  className="rounded-lg shadow-xl w-full h-96 object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-school-blue/20 to-transparent rounded-lg"></div>
-                <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-4">
-                  <p className="text-school-blue font-semibold text-sm">
-                    ✨ Plus de 20 ans d'excellence éducative
-                  </p>
-                </div>
+              <div className="stat-item">
+                <div className="stat-number">500+</div>
+                <div className="stat-label">Élèves Actifs</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-number">98%</div>
+                <div className="stat-label">Taux de Réussite</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-number">50+</div>
+                <div className="stat-label">Enseignants Qualifiés</div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* School Levels Section */}
-        <section className="py-16 section-blue">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-school-blue mb-4">
-                Nos Programmes
+        {/* Programs Section */}
+        <section className="section-modern">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-school-blue mb-6">
+                Nos Programmes d'Excellence
               </h2>
-              <p className="text-gray-600">
-                Un parcours éducatif complet de 3 à 15 ans
+              <p className="text-large text-gray-600 max-w-3xl mx-auto">
+                Un parcours éducatif complet qui accompagne chaque élève de ses
+                premiers pas à sa préparation au BFEM
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <div className="grid-modern grid-3 space-y-modern">
               {schoolLevels.map((level, index) => (
-                <div key={index} className="card-highlight">
-                  <img
-                    src={level.image}
-                    alt={level.title}
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="p-6">
-                    <div className="flex justify-between items-start mb-3">
-                      <h3 className="text-xl font-semibold text-school-blue">
+                <div key={index} className="card-modern group">
+                  <div className="image-overlay">
+                    <img
+                      src={level.image}
+                      alt={level.title}
+                      className="w-full h-64 object-cover"
+                    />
+                  </div>
+                  <div className="p-8">
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-school-blue group-hover:text-school-yellow transition-colors">
                         {level.title}
                       </h3>
-                      <span className="text-sm bg-school-yellow text-school-blue px-3 py-1 rounded-full font-medium">
+                      <span className="bg-school-yellow text-school-black px-3 py-1 text-sm font-medium uppercase tracking-wide">
                         {level.ageRange}
                       </span>
                     </div>
-                    <p className="text-gray-600 mb-4">{level.description}</p>
-                    <div className="space-y-2">
+                    <p className="text-gray-600 mb-6 leading-relaxed">
+                      {level.description}
+                    </p>
+                    <div className="space-y-3">
                       {level.highlights.map((highlight, i) => (
-                        <div
-                          key={i}
-                          className="flex items-center text-sm text-gray-700"
-                        >
-                          <div className="w-2 h-2 bg-school-yellow rounded-full mr-3"></div>
-                          {highlight}
+                        <div key={i} className="flex items-center text-sm">
+                          <div className="w-1 h-1 bg-school-yellow mr-4"></div>
+                          <span className="text-gray-700">{highlight}</span>
                         </div>
                       ))}
                     </div>
@@ -356,26 +326,56 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* News & Events Section */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-school-blue mb-4">
-                Actualités & Événements
-              </h2>
-              <p className="text-gray-600">
-                Restez informés de la vie de notre école
+        {/* About Section with Modern Layout */}
+        <section className="section-dark section-modern clip-diagonal">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className="space-y-8">
+                <h2 className="text-white">Notre Mission</h2>
+                <div className="space-y-6">
+                  <p className="text-large text-white/90 leading-relaxed">
+                    L'Institution Les Hirondelles s'engage à offrir une
+                    éducation de qualité qui forme les citoyens de demain.
+                  </p>
+                  <p className="text-white/80 leading-relaxed">
+                    Nous cultivons l'excellence académique tout en développant
+                    les valeurs humaines essentielles : respect, intégrité,
+                    solidarité et persévérance.
+                  </p>
+                </div>
+                <button className="btn-primary">En savoir plus</button>
+              </div>
+              <div className="relative">
+                <img
+                  src="/images/about-modern.jpg"
+                  alt="Mission Les Hirondelles"
+                  className="w-full h-96 object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-school-yellow/20 to-transparent"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* News & Events - Modern Grid */}
+        <section className="section-modern section-light">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-school-blue mb-6">Actualités & Événements</h2>
+              <p className="text-large text-gray-600">
+                Restez connectés à la vie de notre école
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <div className="grid-modern grid-3">
               {newsEvents.map((item, index) => (
-                <article key={index} className="card">
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-3">
+                <article key={index} className="card-modern group">
+                  <div className="p-8">
+                    <div className="flex justify-between items-start mb-6">
                       <span
-                        className={`text-xs px-3 py-1 rounded-full font-medium ${
+                        className={`px-3 py-1 text-xs font-medium uppercase tracking-wide ${
                           item.type === "Événement"
-                            ? "bg-school-yellow text-school-blue"
+                            ? "bg-school-yellow text-school-black"
                             : "bg-school-blue text-white"
                         }`}
                       >
@@ -385,56 +385,46 @@ export default function HomePage() {
                         {item.date}
                       </time>
                     </div>
-                    <h3 className="text-lg font-semibold text-school-blue mb-2">
+                    <h3 className="text-school-blue mb-4 group-hover:text-school-yellow transition-colors">
                       {item.title}
                     </h3>
-                    <p className="text-gray-600 text-sm leading-relaxed">
+                    <p className="text-gray-600 leading-relaxed">
                       {item.description}
                     </p>
                   </div>
                 </article>
               ))}
             </div>
-            <div className="text-center mt-8">
-              <a href="/news" className="btn-outline">
-                Voir toutes les actualités
-              </a>
-            </div>
           </div>
         </section>
 
-        {/* Testimonials Section */}
-        <section className="py-16 section-yellow">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-school-blue mb-4">
-                Témoignages
-              </h2>
-              <p className="text-gray-600">
-                Ce que disent les parents de notre école
+        {/* Testimonials - Modern Design */}
+        <section className="section-yellow section-modern">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-school-black mb-6">Témoignages</h2>
+              <p className="text-large text-school-black/80">
+                L'excellence reconnue par notre communauté
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <div className="grid lg:grid-cols-2 gap-12">
               {testimonials.map((testimonial, index) => (
-                <div key={index} className="testimonial-card">
-                  <div className="flex items-start space-x-4 mt-4">
+                <div key={index} className="testimonial-modern">
+                  <blockquote className="text-large text-gray-800 mb-8 leading-relaxed italic">
+                    {testimonial.quote}
+                  </blockquote>
+                  <div className="flex items-center space-x-4">
                     <img
                       src={testimonial.image}
                       alt={testimonial.author}
-                      className="w-16 h-16 rounded-full object-cover border-2 border-school-yellow"
+                      className="w-16 h-16 object-cover"
                     />
-                    <div className="flex-1">
-                      <blockquote className="text-gray-700 mb-4 italic leading-relaxed">
-                        {testimonial.quote}
-                      </blockquote>
-                      <div>
-                        <div className="font-semibold text-school-blue">
-                          {testimonial.author}
-                        </div>
-                        <div className="text-sm text-gray-600">
-                          {testimonial.role}
-                        </div>
+                    <div>
+                      <div className="font-semibold text-school-blue text-lg">
+                        {testimonial.author}
                       </div>
+                      <div className="text-gray-600">{testimonial.role}</div>
                     </div>
                   </div>
                 </div>
@@ -443,57 +433,57 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Call to Action Section */}
-        <CallToAction
-          blockType="callToAction"
-          heading="Prêt à rejoindre notre communauté ?"
-          subtext="Découvrez comment Les Hirondelles peut accompagner votre enfant vers la réussite"
-          buttons={[
-            {
-              label: "Planifier une visite",
-              linkType: "external",
-              externalUrl: "/visit",
-            },
-            {
-              label: "Télécharger la brochure",
-              linkType: "external",
-              externalUrl: "/brochure",
-            },
-          ]}
-        />
+        {/* CTA Section */}
+        <section className="section-dark section-modern">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <h2 className="text-white mb-6">
+              Prêt à Rejoindre Notre Communauté ?
+            </h2>
+            <p className="text-large text-white/90 mb-12 leading-relaxed">
+              Découvrez comment Les Hirondelles peut accompagner votre enfant
+              vers l'excellence et la réussite
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <button className="btn-primary">Planifier une visite</button>
+              <button className="btn-outline text-white border-white hover:bg-white hover:text-school-black">
+                Télécharger la brochure
+              </button>
+            </div>
+          </div>
+        </section>
       </main>
 
-      {/* Footer */}
-      <footer className="footer-gradient text-white">
-        <div className="max-w-7xl mx-auto px-4 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      {/* Modern Footer */}
+      <footer className="bg-school-black text-white">
+        <div className="max-w-7xl mx-auto px-6 py-16">
+          <div className="grid-modern grid-4 mb-12">
             <div>
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-school-yellow rounded-full flex items-center justify-center">
-                  <span className="text-school-blue font-bold">LH</span>
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="w-10 h-10 bg-school-yellow flex items-center justify-center">
+                  <span className="text-school-black font-bold">LH</span>
                 </div>
                 <div>
                   <h3 className="font-bold text-white">Les Hirondelles</h3>
-                  <p className="text-sm text-school-yellow">
+                  <p className="text-xs text-school-yellow uppercase tracking-wider">
                     Institution d'Excellence
                   </p>
                 </div>
               </div>
-              <p className="text-gray-300 text-sm leading-relaxed">
+              <p className="text-white/70 leading-relaxed">
                 Formant les leaders de demain avec excellence et bienveillance
                 depuis plus de 20 ans.
               </p>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-school-yellow">
+              <h4 className="font-semibold mb-6 text-school-yellow uppercase tracking-wide text-sm">
                 Navigation
               </h4>
-              <ul className="space-y-2 text-sm">
+              <ul className="space-y-3">
                 <li>
                   <a
                     href="/about"
-                    className="text-gray-300 hover:text-school-yellow transition-colors"
+                    className="text-white/70 hover:text-school-yellow transition-colors"
                   >
                     À propos
                   </a>
@@ -501,7 +491,7 @@ export default function HomePage() {
                 <li>
                   <a
                     href="/programs"
-                    className="text-gray-300 hover:text-school-yellow transition-colors"
+                    className="text-white/70 hover:text-school-yellow transition-colors"
                   >
                     Programmes
                   </a>
@@ -509,7 +499,7 @@ export default function HomePage() {
                 <li>
                   <a
                     href="/admissions"
-                    className="text-gray-300 hover:text-school-yellow transition-colors"
+                    className="text-white/70 hover:text-school-yellow transition-colors"
                   >
                     Admissions
                   </a>
@@ -517,7 +507,7 @@ export default function HomePage() {
                 <li>
                   <a
                     href="/life"
-                    className="text-gray-300 hover:text-school-yellow transition-colors"
+                    className="text-white/70 hover:text-school-yellow transition-colors"
                   >
                     Vie scolaire
                   </a>
@@ -526,65 +516,46 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-school-yellow">Contact</h4>
-              <div className="space-y-2 text-sm text-gray-300">
-                <p className="flex items-center">
-                  <span className="mr-2">📍</span> Dakar, Sénégal
-                </p>
-                <p className="flex items-center">
-                  <span className="mr-2">📞</span> +221 33 XXX XX XX
-                </p>
-                <p className="flex items-center">
-                  <span className="mr-2">✉️</span> contact@leshirondelles.sn
-                </p>
+              <h4 className="font-semibold mb-6 text-school-yellow uppercase tracking-wide text-sm">
+                Contact
+              </h4>
+              <div className="space-y-3 text-white/70">
+                <p>Dakar, Sénégal</p>
+                <p>+221 33 XXX XX XX</p>
+                <p>contact@leshirondelles.sn</p>
               </div>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-school-yellow">
+              <h4 className="font-semibold mb-6 text-school-yellow uppercase tracking-wide text-sm">
                 Suivez-nous
               </h4>
-              <div className="flex space-x-4 mb-4">
+              <div className="flex space-x-4 mb-6">
                 <a
                   href="#"
-                  className="w-10 h-10 bg-school-blue hover:bg-school-yellow text-white hover:text-school-blue rounded-full flex items-center justify-center transition-all"
+                  className="w-10 h-10 bg-school-blue hover:bg-school-yellow text-white hover:text-school-black flex items-center justify-center transition-all"
                 >
-                  📘
+                  <span className="text-sm">f</span>
                 </a>
                 <a
                   href="#"
-                  className="w-10 h-10 bg-school-blue hover:bg-school-yellow text-white hover:text-school-blue rounded-full flex items-center justify-content transition-all"
+                  className="w-10 h-10 bg-school-blue hover:bg-school-yellow text-white hover:text-school-black flex items-center justify-center transition-all"
                 >
-                  📷
+                  <span className="text-sm">ig</span>
                 </a>
                 <a
                   href="#"
-                  className="w-10 h-10 bg-school-blue hover:bg-school-yellow text-white hover:text-school-blue rounded-full flex items-center justify-center transition-all"
+                  className="w-10 h-10 bg-school-blue hover:bg-school-yellow text-white hover:text-school-black flex items-center justify-center transition-all"
                 >
-                  💼
+                  <span className="text-sm">in</span>
                 </a>
-              </div>
-              <div>
-                <h5 className="font-medium mb-2 text-school-yellow">
-                  Newsletter
-                </h5>
-                <div className="flex">
-                  <input
-                    type="email"
-                    placeholder="Votre email"
-                    className="flex-1 px-3 py-2 text-sm bg-gray-800 border border-gray-600 rounded-l-md focus:outline-none focus:border-school-yellow text-white"
-                  />
-                  <button className="px-4 py-2 bg-school-yellow text-school-blue text-sm rounded-r-md hover:bg-school-yellow-dark font-medium transition-colors">
-                    OK
-                  </button>
-                </div>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">
-            <p>
-              &copy; 2024 Institution Les Hirondelles. Tous droits réservés.
+          <div className="border-t border-white/20 pt-8 text-center">
+            <p className="text-white/50 text-sm">
+              © 2024 Institution Les Hirondelles. Tous droits réservés.
             </p>
           </div>
         </div>
