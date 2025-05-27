@@ -438,7 +438,7 @@ export default function HomePage() {
                   <div key={index} className="testimonial-card-creative">
                     <div className="testimonial-content-creative">
                       <div className="testimonial-quote-creative">
-                        <span className="quote-mark">&quot;</span>
+                        <span className="quote-mark"></span>
                         <p>{testimonial.quote}</p>
                       </div>
                       <div className="testimonial-author-creative">
@@ -499,7 +499,7 @@ export default function HomePage() {
                   <div className="cta-card-icon">💬</div>
                   <h3>Nous contacter</h3>
                   <p>Posez vos questions</p>
-                  <a href="/contact" className="btn btn-secondary">
+                  <a href="/contact" className="font-family-poppins font-medium text-[0.875rem] px-[2rem] py-[1rem] tracking-[0.025em] text-white border-1 border-white hover:underline transition-all duration-300 translate-y-0 hover:translate-y-[-1px]">
                     Discuter
                   </a>
                 </div>

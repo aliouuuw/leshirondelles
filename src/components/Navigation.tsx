@@ -24,9 +24,9 @@ const Navigation = () => {
             <Image
               src="/images/logo.png"
               alt="Les Hirondelles"
-              width={40}
+              width={30}
               height={40}
-              className="w-10 h-10"
+              className="w-12 h-10"
             />
             <span className="font-semibold text-lg">Les Hirondelles</span>
           </Link>

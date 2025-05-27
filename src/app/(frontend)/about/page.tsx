@@ -386,9 +386,9 @@ export default function AboutPage() {
       {/* Call to Action Section */}
       <section className="py-24 bg-primary text-white">
         <div className="container mx-auto px-6 max-w-6xl text-center flex flex-col items-center justify-center">
-          <div className="section-header-creative mb-12">
+          <div className="mb-12">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 color-white">
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-white">
                 Rejoignez Notre Communauté
               </h2>
               <p className="text-xl text-gray-100 mb-12 max-w-2xl mx-auto leading-relaxed">
@@ -401,7 +401,7 @@ export default function AboutPage() {
             <a href="/contact" className="btn btn-accent">
               Nous Contacter
             </a>
-            <a href="/admissions" className="btn btn-secondary">
+            <a href="/inscription" className="font-family-poppins font-medium text-[0.875rem] px-[2rem] py-[1rem] tracking-[0.025em] text-white border-1 border-white hover:underline transition-all duration-300 translate-y-0 hover:translate-y-[-1px]">
               Processus d&apos;inscription
             </a>
           </div>

@@ -353,7 +353,7 @@ export default function ElementaryPage() {
               <a href="/contact" className="btn btn-accent">
                 Planifier une Visite
               </a>
-              <a href="/admissions" className="btn btn-secondary">
+              <a href="/inscription" className="font-family-poppins font-medium text-[0.875rem] px-[2rem] py-[1rem] tracking-[0.025em] text-white border-1 border-white hover:underline transition-all duration-300 translate-y-0 hover:translate-y-[-1px]">
                 Dossier d&apos;Inscription
               </a>
             </div>

@@ -74,13 +74,12 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-poppins), sans-serif;
   font-weight: 600;
   line-height: 1.1;
-  color: var(--black);
   letter-spacing: -0.025em;
 }
 
 h1 { font-size: clamp(3rem, 6vw, 5rem); font-weight: 700; }
 h2 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 600; }
-h3 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 600; }
+/* h3 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 600; } */
 
 .display-xl {
   font-size: clamp(4rem, 10vw, 8rem);
@@ -129,12 +128,12 @@ h3 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 600; }
 
 .btn-secondary {
   background: transparent;
-  color: var(--white);
+  color: var(--black);
   border: 1px solid var(--gray-300);
 }
 
 .btn-secondary:hover {
-  border-color: var(--white);
+  border-color: var(--black);
   transform: translateY(-1px);
   text-decoration: underline;
 }
@@ -1360,7 +1359,7 @@ html { scroll-behavior: smooth; }
 }
 
 .cta-card h3 {
-  font-size: 1.25rem;
+  font-size: 16px;
   font-weight: 600;
   margin-bottom: 1rem;
   color: var(--black);
