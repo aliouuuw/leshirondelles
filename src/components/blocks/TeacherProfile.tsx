@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import Image from "next/image";
-import type { TeacherProfileBlock } from "./types";
-import type { RichTextType } from "@/payload-types";
+import type { TeacherProfileBlock, RichTextBlock } from "./types";
 
 export const TeacherProfile: React.FC<TeacherProfileBlock> = ({
   title,
@@ -72,13 +72,13 @@ export const TeacherProfile: React.FC<TeacherProfileBlock> = ({
                   )}
                   {staffMember.bio && (
                     <div className="prose prose-sm max-w-none text-gray-500">
-                      {(staffMember.bio as RichTextType).root.children.map(
-                        (node, i) => {
+                      {(staffMember.bio as unknown as RichTextBlock).content.root.children.map(
+                        (node: any, i: any) => {
                           if (node.children && Array.isArray(node.children)) {
                             return (
                               <p key={i} className="line-clamp-3">
                                 {node.children
-                                  .map((child) => child.text)
+                                  .map((child: any) => child.text)
                                   .join("")}
                               </p>
                             );

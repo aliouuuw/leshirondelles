@@ -1,6 +1,7 @@
 import React from "react";
 import "./styles.css";
 import { Inter, Poppins } from "next/font/google";
+import Navigation from "@/components/Navigation";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,9 +32,9 @@ export const metadata = {
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props;
-
+  const year = new Date().getFullYear();
   return (
-    <html lang="fr">
+    <html lang="fr" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -41,7 +42,79 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       <body
         className={`${inter.variable} ${poppins.variable} font-sans antialiased`}
       >
+        <Navigation />
         {children}
+        {/* Minimal Footer */}
+      <footer className="footer">
+        <div className="container">
+          <div className="footer-content">
+            <div className="footer-section">
+              <div className="logo" style={{ marginBottom: "1.5rem" }}>
+                <div
+                  className="logo-mark"
+                  style={{ background: "var(--white)", color: "var(--black)" }}
+                >
+                  LH
+                </div>
+                <span className="logo-text" style={{ color: "var(--white)" }}>
+                  Les Hirondelles
+                </span>
+              </div>
+              <p style={{ color: "var(--gray-400)", lineHeight: "1.6" }}>
+                Excellence éducative depuis plus de 20 ans.
+              </p>
+            </div>
+
+            <div className="footer-section">
+              <h4>Navigation</h4>
+              <ul className="footer-links">
+                <li>
+                  <a href="/about">À propos</a>
+                </li>
+                <li>
+                  <a href="/programs">Programmes</a>
+                </li>
+                <li>
+                  <a href="/admissions">Admissions</a>
+                </li>
+                <li>
+                  <a href="/contact">Contact</a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="footer-section">
+              <h4>Contact</h4>
+              <ul className="footer-links">
+                <li>Dakar, Sénégal</li>
+                <li>+221 33 XXX XX XX</li>
+                <li>contact@leshirondelles.sn</li>
+              </ul>
+            </div>
+
+            <div className="footer-section">
+              <h4>Suivez-nous</h4>
+              <ul className="footer-links">
+                <li>
+                  <a href="#">Facebook</a>
+                </li>
+                <li>
+                  <a href="#">Instagram</a>
+                </li>
+                <li>
+                  <a href="#">LinkedIn</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="footer-bottom">
+            <p>
+              &copy; {year} Institution Les Hirondelles. Tous droits réservés.
+            </p>
+          </div>
+        </div>
+      </footer>
       </body>
     </html>
   );
