@@ -11,8 +11,8 @@ const Navigation = () => {
 
   const programLinks = [
     { name: "Préscolaire", href: "/programs/preschool", age: "3-5 ans" },
-    { name: "Élémentaire", href: "/programs/elementary", age: "6-10 ans" },
-    { name: "Collège", href: "/programs/middle-school", age: "11-15 ans" },
+    { name: "Primaire", href: "/programs/primary", age: "6-10 ans" },
+    { name: "Collège", href: "/programs/middleschool", age: "11-15 ans" },
   ];
 
   return (

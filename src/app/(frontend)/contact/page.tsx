@@ -122,8 +122,9 @@ export default function ContactPage() {
                 <div className="max-w-xl">
                   <p className="text-xl text-gray-600 leading-relaxed mb-6">
                     Nous sommes là pour répondre à toutes vos questions
-                    concernant l&apos;éducation de votre enfant. N&apos;hésitez pas à nous
-                    contacter par le moyen qui vous convient le mieux.
+                    concernant l&apos;éducation de votre enfant. N&apos;hésitez
+                    pas à nous contacter par le moyen qui vous convient le
+                    mieux.
                   </p>
                 </div>
               </div>
@@ -190,9 +191,12 @@ export default function ContactPage() {
                 <h3 className="text-xl font-semibold mb-4 color-black">
                   {info.title}
                 </h3>
-                <div className="space-y-2 mb-4">
+                <div className="space-y-2 mb-4 text-center">
                   {info.details.map((detail, i) => (
-                    <p key={i} className="text-gray-700 font-medium">
+                    <p
+                      key={i}
+                      className="text-gray-700 break-words whitespace-normal font-medium"
+                    >
                       {detail}
                     </p>
                   ))}
@@ -291,7 +295,9 @@ export default function ContactPage() {
                   >
                     <option value="">Choisissez un sujet</option>
                     <option value="admission">Demande d&apos;admission</option>
-                    <option value="information">Demande d&apos;information</option>
+                    <option value="information">
+                      Demande d&apos;information
+                    </option>
                     <option value="visite">Planifier une visite</option>
                     <option value="rdv">Prendre rendez-vous</option>
                     <option value="autre">Autre</option>
@@ -335,7 +341,8 @@ export default function ContactPage() {
                   </div>
                 </div>
                 <p className="text-sm text-gray-600 mt-2">
-                  Face à l&apos;Université Cheikh Anta Diop, près de la station Total
+                  Face à l&apos;Université Cheikh Anta Diop, près de la station
+                  Total
                 </p>
               </div>
 

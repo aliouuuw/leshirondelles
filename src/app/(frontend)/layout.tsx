@@ -23,10 +23,10 @@ export const metadata = {
   description:
     "Institution Les Hirondelles offre une éducation de qualité du préscolaire au collège. Formant les leaders de demain avec excellence et bienveillance à Dakar, Sénégal.",
   keywords:
-    "école, éducation, Sénégal, Dakar, préscolaire, élémentaire, collège, Les Hirondelles",
+    "école, éducation, Sénégal, Dakar, préscolaire, primaire, collège, Les Hirondelles",
   openGraph: {
     title: "Institution Les Hirondelles",
-    description: "École d'excellence - Préscolaire, Élémentaire, Collège",
+    description: "École d'excellence - Préscolaire, Primaire, Collège",
     type: "website",
     locale: "fr_SN",
   },

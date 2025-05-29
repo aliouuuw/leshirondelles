@@ -85,21 +85,21 @@ const schoolLevels = [
       "Un environnement bienveillant pour les premiers apprentissages",
     ageRange: "3-5 ans",
     highlights: ["Éveil artistique", "Développement moteur", "Socialisation"],
-    image: "/images/preschool.jpg",
+    image: "/images/programs/preschool.jpg",
   },
   {
-    title: "Élémentaire",
+    title: "Primaire",
     description: "Fondations solides pour l'apprentissage académique",
     ageRange: "6-10 ans",
     highlights: ["Français & Mathématiques", "Sciences", "Langues étrangères"],
-    image: "/images/elementary.jpg",
+    image: "/images/programs/primary.jpg",
   },
   {
     title: "Collège",
     description: "Préparation à l'excellence académique et personnelle",
     ageRange: "11-15 ans",
     highlights: ["Préparation BFEM", "Clubs & activités", "Orientation"],
-    image: "/images/middle-school.jpg",
+    image: "/images/programs/middleschool.jpg",
   },
 ];
 
@@ -258,8 +258,8 @@ export default function HomePage() {
                     <Image
                       src={level.image}
                       alt={level.title}
-                      width={100}
-                      height={100}
+                      width={1000}
+                      height={1000}
                       quality={100}
                       className="w-full h-full object-cover"
                     />
@@ -499,7 +499,10 @@ export default function HomePage() {
                   <div className="cta-card-icon">💬</div>
                   <h3>Nous contacter</h3>
                   <p>Posez vos questions</p>
-                  <a href="/contact" className="font-family-poppins font-medium text-[0.875rem] px-[2rem] py-[1rem] tracking-[0.025em] text-white border-1 border-white hover:underline transition-all duration-300 translate-y-0 hover:translate-y-[-1px]">
+                  <a
+                    href="/contact"
+                    className="font-family-poppins font-medium text-[0.875rem] px-[2rem] py-[1rem] tracking-[0.025em] text-white border-1 border-white hover:underline transition-all duration-300 translate-y-0 hover:translate-y-[-1px]"
+                  >
                     Discuter
                   </a>
                 </div>

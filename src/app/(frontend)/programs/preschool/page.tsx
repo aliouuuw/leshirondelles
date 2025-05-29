@@ -80,7 +80,7 @@ const ageGroups = [
   {
     name: "Grande Section",
     age: "5-6 ans",
-    focus: "Préparation à l'élémentaire",
+    focus: "Préparation à l'primaire",
     image: "/images/programs/preschool-large.jpg",
   },
 ];
@@ -172,7 +172,8 @@ export default function PreschoolPage() {
             <div>
               <h2 className="section-title-creative">Nos Classes</h2>
               <p className="section-description-creative">
-                Trois niveaux adaptés au développement de chaque tranche d&apos;âge
+                Trois niveaux adaptés au développement de chaque tranche
+                d&apos;âge
               </p>
             </div>
           </div>
@@ -298,7 +299,10 @@ export default function PreschoolPage() {
               <a href="/contact" className="btn btn-accent">
                 Planifier une Visite
               </a>
-              <a href="/inscription" className="font-family-poppins font-medium text-[0.875rem] px-[2rem] py-[1rem] tracking-[0.025em] text-white border-1 border-white hover:underline transition-all duration-300 translate-y-0 hover:translate-y-[-1px]">
+              <a
+                href="/inscription"
+                className="font-family-poppins font-medium text-[0.875rem] px-[2rem] py-[1rem] tracking-[0.025em] text-white border-1 border-white hover:underline transition-all duration-300 translate-y-0 hover:translate-y-[-1px]"
+              >
                 Dossier d&apos;Inscription
               </a>
             </div>

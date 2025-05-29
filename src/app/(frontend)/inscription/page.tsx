@@ -77,7 +77,7 @@ const documentsRequired = {
     "Photocopie CNI des parents",
     "Justificatif de domicile récent",
   ],
-  elementary: [
+  primary: [
     "Acte de naissance de l'enfant",
     "Certificat médical",
     "Carnet de vaccination à jour",
@@ -108,7 +108,7 @@ const tuitionFees = [
     includes: ["Repas", "Activités", "Matériel pédagogique"],
   },
   {
-    level: "Élémentaire",
+    level: "Primaire",
     enrollment: "75 000 FCFA",
     monthly: "55 000 FCFA",
     annual: "550 000 FCFA",
@@ -177,9 +177,9 @@ export default function AdmissionsPage() {
 
                 <div className="max-w-xl">
                   <p className="text-xl text-gray-600 leading-relaxed mb-6">
-                    Rejoignez notre communauté éducative d&apos;excellence. Découvrez
-                    notre processus d&apos;admission transparent et accompagnement
-                    personnalisé pour chaque famille.
+                    Rejoignez notre communauté éducative d&apos;excellence.
+                    Découvrez notre processus d&apos;admission transparent et
+                    accompagnement personnalisé pour chaque famille.
                   </p>
 
                   <div className="flex items-center gap-6 text-sm text-gray-500">
@@ -218,8 +218,9 @@ export default function AdmissionsPage() {
                   <Image
                     src="/images/admissions/admissions-hero.jpg"
                     alt="Admissions Les Hirondelles"
-                    fill
-                    className="object-cover"
+                    width={1000}
+                    height={1000}
+                    className="object-contain"
                   />
                 </div>
                 <div className="absolute -top-6 -left-6 w-12 h-12 bg-accent"></div>
@@ -235,7 +236,9 @@ export default function AdmissionsPage() {
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="section-header-creative mb-16">
             <div>
-              <h2 className="section-title-creative">Processus d&apos;Admission</h2>
+              <h2 className="section-title-creative">
+                Processus d&apos;Admission
+              </h2>
               <p className="section-description-creative">
                 Six étapes simples pour rejoindre notre famille éducative
               </p>
@@ -297,10 +300,10 @@ export default function AdmissionsPage() {
 
             <div className="card p-8">
               <h3 className="text-2xl font-bold mb-6 color-black text-center">
-                Élémentaire
+                Primaire
               </h3>
               <div className="space-y-4">
-                {documentsRequired.elementary.map((doc, index) => (
+                {documentsRequired.primary.map((doc, index) => (
                   <div key={index} className="flex items-start gap-3">
                     <FaCheckCircle className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
                     <span className="text-gray-700">{doc}</span>
@@ -529,7 +532,7 @@ export default function AdmissionsPage() {
                         type="text"
                         required
                         className="w-full pl-10 pr-4 py-3 border border-gray-300 focus:border-primary focus:outline-none transition-colors"
-                        placeholder="Nom complet de l&apos;enfant"
+                        placeholder="Nom complet de l'enfant"
                       />
                     </div>
                   </div>
@@ -585,7 +588,7 @@ export default function AdmissionsPage() {
                     <input
                       type="text"
                       className="w-full px-4 py-3 border border-gray-300 focus:border-primary focus:outline-none transition-colors"
-                      placeholder="Nom de l&apos;école actuelle"
+                      placeholder="Nom de l'école actuelle"
                     />
                   </div>
                 </div>
@@ -599,7 +602,7 @@ export default function AdmissionsPage() {
                 <textarea
                   rows={4}
                   className="w-full px-4 py-3 border border-gray-300 focus:border-primary focus:outline-none transition-colors resize-none"
-                  placeholder="Toute information que vous jugez utile pour l&apos;admission de votre enfant..."
+                  placeholder="Toute information que vous jugez utile pour l'admission de votre enfant..."
                 ></textarea>
               </div>
 
@@ -639,8 +642,9 @@ export default function AdmissionsPage() {
               Des Questions sur les Admissions ?
             </h2>
             <p className="text-xl text-gray-100 mb-8 leading-relaxed">
-              Notre équipe d&apos;admission est là pour vous accompagner à chaque
-              étape. N&apos;hésitez pas à nous contacter pour plus d&apos;informations.
+              Notre équipe d&apos;admission est là pour vous accompagner à
+              chaque étape. N&apos;hésitez pas à nous contacter pour plus
+              d&apos;informations.
             </p>
             <div className="flex flex-wrap justify-center gap-6">
               <a

@@ -59,7 +59,7 @@ const historyMilestones = [
     year: "2008",
     title: "Première Promotion du Primaire",
     description:
-      "Célébration de nos premiers diplômés du cycle élémentaire, marquant une étape clé.",
+      "Célébration de nos premiers diplômés du cycle primaire, marquant une étape clé.",
     image: "/images/about/history-2.jpg",
   },
   {
@@ -87,22 +87,22 @@ const historyMilestones = [
 
 const leadershipTeam = [
   {
-    name: "Mme. Aïssatou Diop",
+    name: "Mme. NDIAYE Cheikh SY",
+    role: "Déclarante Responsable",
+    image: "/images/team/supervisor.jpg",
+    bio: "Mme. NDIAYE ,fondatrice de l'école, est dédiée à la gestion administrative de l'école, favorisant un environnement scolaire positif et inclusif pour tous.",
+  },
+  {
+    name: "Mme. Ndiaye Fatou Dabo",
     role: "Directrice Générale",
     image: "/images/team/director.jpg",
-    bio: "Avec plus de 20 ans d'expérience dans l'éducation, Mme. Diop inspire notre vision stratégique et notre engagement envers l'excellence.",
+    bio: "Avec plus de 20 ans d'expérience dans l'éducation, Mme. Ndiaye inspire notre vision stratégique et notre engagement envers l'excellence.",
   },
   {
-    name: "M. Oumar Ndiaye",
-    role: "Directeur Pédagogique",
+    name: "M. Aliou GOUDIABY",
+    role: "Gestionnaire Pédagogique",
     image: "/images/team/pedagogical-lead.jpg",
-    bio: "Passionné par l'innovation pédagogique, M. Ndiaye veille à la qualité de nos programmes et à l'épanouissement de chaque élève.",
-  },
-  {
-    name: "Mme. Fatoumata Sarr",
-    role: "Responsable Vie Scolaire",
-    image: "/images/team/student-life.jpg",
-    bio: "Mme. Sarr est dédiée au bien-être des élèves, favorisant un environnement scolaire positif et inclusif pour tous.",
+    bio: "Passionné par l'innovation pédagogique, M. GOUDIABY veille à la qualité de nos programmes et à l'épanouissement de chaque élève.",
   },
 ];
 
@@ -123,14 +123,16 @@ export default function AboutPage() {
               {/* Main Heading */}
               <div className="space-y-6">
                 <h1 className="text-5xl lg:text-7xl font-bold leading-none">
-                  <span className="block text-gray-900">Notre Histoire & Vision</span>
+                  <span className="block text-gray-900">
+                    Notre Histoire & Vision
+                  </span>
                 </h1>
 
                 <div className="max-w-xl">
                   <p className="text-xl text-gray-600 leading-relaxed mb-6">
-                    Depuis plus de deux décennies, nous cultivons l&apos;excellence
-                    éducative au cœur du Sénégal, formant les leaders de demain
-                    avec passion et dévouement.
+                    Depuis plus de deux décennies, nous cultivons
+                    l&apos;excellence éducative au cœur du Sénégal, formant les
+                    leaders de demain avec passion et dévouement.
                   </p>
 
                   <div className="flex items-center gap-4 text-sm text-gray-500">
@@ -144,7 +146,9 @@ export default function AboutPage() {
               {/* Mission Statement */}
               <div className="bg-gray-50 p-8 border-l-4 border-primary">
                 <div className="flex items-start gap-4">
-                  <div className="text-4xl text-primary leading-none">&quot;</div>
+                  <div className="text-4xl text-primary leading-none">
+                    &quot;
+                  </div>
                   <div>
                     <p className="text-lg italic text-gray-700 mb-3">
                       Former les citoyens de demain en alliant excellence
@@ -173,25 +177,13 @@ export default function AboutPage() {
                 </div>
 
                 {/* Overlay Content */}
-                <div className="absolute inset-0 flex flex-col justify-between p-8">
-                  {/* Top Badge */}
-                  <div className="self-start">
-                    <div className="bg-white/90 backdrop-blur-sm px-4 py-2 shadow-lg">
-                      <div className="text-2xl font-bold text-primary">
-                        2003
-                      </div>
-                      <div className="text-xs text-gray-600 uppercase tracking-wide">
-                        Année de Fondation
-                      </div>
-                    </div>
-                  </div>
-
+                <div className="absolute inset-0 flex flex-col justify-end p-8">
                   {/* Bottom Quote */}
                   <div className="self-end max-w-xs">
                     <div className="bg-black/80 text-white p-6 backdrop-blur-sm">
                       <p className="text-sm mb-2">
-                        &quot;L&apos;éducation est l&apos;arme la plus puissante pour changer
-                        le monde&quot;
+                        &quot;L&apos;éducation est l&apos;arme la plus puissante
+                        pour changer le monde&quot;
                       </p>
                       <div className="text-xs text-gray-300">
                         — Nelson Mandela
@@ -401,7 +393,10 @@ export default function AboutPage() {
             <a href="/contact" className="btn btn-accent">
               Nous Contacter
             </a>
-            <a href="/inscription" className="font-family-poppins font-medium text-[0.875rem] px-[2rem] py-[1rem] tracking-[0.025em] text-white border-1 border-white hover:underline transition-all duration-300 translate-y-0 hover:translate-y-[-1px]">
+            <a
+              href="/inscription"
+              className="font-family-poppins font-medium text-[0.875rem] px-[2rem] py-[1rem] tracking-[0.025em] text-white border-1 border-white hover:underline transition-all duration-300 translate-y-0 hover:translate-y-[-1px]"
+            >
               Processus d&apos;inscription
             </a>
           </div>
