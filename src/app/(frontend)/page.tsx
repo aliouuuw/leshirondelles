@@ -2,6 +2,7 @@
 import React from "react";
 import "./styles.css";
 import Image from "next/image";
+import { ImageSlider } from "@/components/ImageSlider";
 
 // Helper to render Payload blocks
 // const renderBlock = (block: any, index: number) => {
@@ -148,19 +149,14 @@ export default function HomePage() {
       <main>
         {/* Hero Section - Condensed Content */}
         <section className="hero-background-optimized">
-          <div className="hero-image-wrapper">
-            <Image
-              src="/images/hero-school-background.jpg"
-              alt="Institution Les Hirondelles - Excellence éducative"
-              fill
-              priority
-              quality={95}
-              sizes="100vw"
-              className="hero-background-image object-cover object-center brightness-50"
-            />
+          <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center z-0">
+            <ImageSlider />
+            {/* <h1 className="text-purple text-4xl font-bold">
+              Background
+            </h1> */}
           </div>
-          <div className="hero-overlay"></div>
-          <div className="container">
+          <div className="z-10 absolute top-0 left-0 w-full h-full bg-linear-to-r from-[var(--primary)] to-[var(--accent)]/50 opacity-50"></div>
+          <div className="container z-20">
             <div className="hero-content-background">
               <div className="hero-badge-elegant">
                 <span>Excellence depuis 20+ ans</span>

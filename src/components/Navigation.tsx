@@ -6,13 +6,48 @@ import { FaChevronUp } from "react-icons/fa";
 
 const Navigation = () => {
   const [isProgramsOpen, setIsProgramsOpen] = useState(false);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false);
+  const [isDesktopAboutOpen, setIsDesktopAboutOpen] = useState(false);
 
   const programLinks = [
     { name: "Préscolaire", href: "/programs/preschool", age: "3-5 ans" },
     { name: "Primaire", href: "/programs/primary", age: "6-10 ans" },
     { name: "Collège", href: "/programs/middleschool", age: "11-15 ans" },
+  ];
+
+  const aboutLinks = [
+    {
+      name: "Notre Histoire",
+      href: "/about",
+      description: "Découvrez notre parcours et nos valeurs",
+    },
+    {
+      name: "Notre Équipe",
+      href: "/team",
+      description: "Rencontrez nos enseignants",
+    },
+    {
+      name: "Journal de l'école",
+      href: "/blog",
+      description: "Actualités et vie scolaire",
+    },
+    {
+      name: "Galerie",
+      href: "/gallery",
+      description: "Aperçu de nos activités",
+    },
+    // {
+    //   name: "Installations",
+    //   href: "/facilities",
+    //   description: "Nos infrastructures modernes",
+    // },
+    // {
+    //   name: "Témoignages",
+    //   href: "/testimonials",
+    //   description: "Ce que disent nos parents",
+    // },
   ];
 
   return (
@@ -40,12 +75,72 @@ const Navigation = () => {
               Accueil
             </Link>
 
-            <Link
-              href="/about"
-              className="text-gray-600 hover:text-gray-900 hover:underline transition-colors"
+            {/* About Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setIsDesktopAboutOpen(true)}
+              onMouseLeave={() => setIsDesktopAboutOpen(false)}
             >
-              À propos
-            </Link>
+              <button className="flex items-center gap-1 text-gray-600 hover:text-gray-900 transition-colors py-2 focus:outline-none">
+                À propos
+                <svg
+                  className={`w-4 h-4 transition-transform duration-200 ${
+                    isDesktopAboutOpen ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {/* About Dropdown Content */}
+              <div
+                className={`absolute top-full left-0 mt-2 w-[300px] bg-white border border-gray-200 shadow-lg transition-all duration-200 ${
+                  isDesktopAboutOpen
+                    ? "opacity-100 visible translate-y-0"
+                    : "opacity-0 invisible -translate-y-2"
+                }`}
+              >
+                <div className="px-4 py-2">
+                  {aboutLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="group flex items-center justify-between w-full px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:bg-gray-50 focus:text-blue-600"
+                    >
+                      <div className="flex flex-col h-[45px]">
+                        <span className="font-medium text-gray-900 group-hover:text-[#00538d]">
+                          {link.name}
+                        </span>
+                        <span className="text-xs text-gray-500 mt-0.5">
+                          {link.description}
+                        </span>
+                      </div>
+                      <svg
+                        className="w-4 h-4 text-gray-400 group-hover:text-[#00538d] transition-colors opacity-0 group-hover:opacity-100 group-focus:opacity-100"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
 
             {/* Hover Dropdown for Programs */}
             <div
@@ -168,13 +263,64 @@ const Navigation = () => {
               >
                 Accueil
               </Link>
-              <Link
-                href="/about"
-                className="px-4 py-2 text-gray-600 hover:text-gray-900 hover:underline"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                À propos
-              </Link>
+
+              {/* Mobile About Dropdown */}
+              <div className="px-4 py-2">
+                <button
+                  onClick={() => setIsAboutOpen(!isAboutOpen)}
+                  className="flex items-center justify-between w-full text-gray-600 hover:text-gray-900 pr-8"
+                >
+                  <div className="flex items-center gap-2">
+                    <span>À propos</span>
+                  </div>
+                  <FaChevronUp
+                    className={`w-4 h-4 transition-transform duration-200 text-[#00538d] ${
+                      isAboutOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+
+                {/* Mobile About Dropdown Content */}
+                {isAboutOpen && (
+                  <div className="mt-2 ml-4 space-y-2">
+                    {aboutLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className="block py-2 text-gray-600 hover:text-gray-900 hover:bg-slate-100/50 px-2 transition-colors"
+                        onClick={() => {
+                          setIsAboutOpen(false);
+                          setIsMobileMenuOpen(false);
+                        }}
+                      >
+                        <div className="flex items-center gap-2">
+                          <svg
+                            className="w-4 h-4 text-gray-400"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                          <div>
+                            <span className="block font-medium">
+                              {link.name}
+                            </span>
+                            <span className="block text-sm text-gray-500">
+                              {link.description}
+                            </span>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
 
               {/* Mobile Programs Dropdown - Click Only */}
               <div className="px-4 py-2">
