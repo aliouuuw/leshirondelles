@@ -58,9 +58,14 @@ const formatDate = (dateString: string) => {
   return new Date(dateString).toLocaleDateString("fr-FR", options);
 };
 
-export default function BlogPost({ params }: { params: { id: string } }) {
+export default async function BlogPost({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
   // In a real app, you would fetch the post based on the ID
-  if (params.id !== "1") {
+  if (id !== "1") {
     notFound();
   }
 
