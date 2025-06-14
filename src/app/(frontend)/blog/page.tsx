@@ -82,76 +82,106 @@ export default function BlogPage() {
   const regularPosts = blogPosts.filter((post) => !post.featured);
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen bg-gray-50 text-gray-800 pt-20">
       <main>
-        {/* Header Section */}
-        <section className="bg-gradient-to-r from-[#00538d] to-[#003e6b] text-white py-16">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                Journal de l&apos;école
-              </h1>
-              <p className="text-xl text-white/80">
-                Actualités, événements et vie scolaire à Les Hirondelles
-              </p>
+        {/* Hero Section */}
+        <section className="relative bg-white text-gray-900 py-24 overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-accent to-primary"></div>
+          </div>
+
+          <div className="container mx-auto px-6 max-w-6xl relative z-10">
+            <div className="grid lg:grid-cols-12 gap-12 items-center">
+              <div className="lg:col-span-7 space-y-8">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-px bg-accent"></div>
+                  <span className="text-sm font-semibold text-primary tracking-wider uppercase">
+                    Blog
+                  </span>
+                </div>
+
+                <div className="space-y-6">
+                  <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
+                    <span className="block text-gray-900">
+                      Journal de l&apos;école
+                    </span>
+                  </h1>
+
+                  <div className="max-w-xl">
+                    <p className="text-xl text-gray-600 leading-relaxed">
+                      Actualités, événements et vie scolaire à Les Hirondelles.
+                      Découvrez les moments forts de notre communauté éducative.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="lg:col-span-5">
+                <div className="relative">
+                  <div className="relative h-[400px] w-full">
+                    <Image
+                      src="/images/blog/blog-hero.jpg"
+                      alt="Blog Les Hirondelles"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="absolute -top-6 -left-6 w-12 h-12 bg-accent"></div>
+                  <div className="absolute -bottom-6 -right-6 w-8 h-8 bg-primary"></div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Featured Post */}
         {featuredPost && (
-          <section className="py-12 bg-gray-50">
-            <div className="container mx-auto px-4">
-              <div className="max-w-7xl mx-auto">
-                <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                  <div className="flex flex-col md:flex-row">
-                    <div className="md:w-1/2 relative h-64 md:h-auto">
-                      <Image
-                        src={featuredPost.image}
-                        alt={featuredPost.title}
-                        fill
-                        className="object-cover"
-                      />
+          <section className="py-24 bg-white">
+            <div className="container mx-auto px-6 max-w-6xl">
+              <div className="section-header-creative mb-16">
+                <div>
+                  <h2 className="section-title-creative">À la Une</h2>
+                  <p className="section-description-creative">
+                    Notre article vedette de la semaine
+                  </p>
+                </div>
+              </div>
+
+              <div className="card overflow-hidden transition-all duration-300 hover:transform hover:-translate-y-1">
+                <div className="grid md:grid-cols-2 gap-0">
+                  <div className="relative h-64 md:h-auto">
+                    <Image
+                      src={featuredPost.image}
+                      alt={featuredPost.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-8 md:p-12 flex flex-col justify-center">
+                    <div className="flex items-center gap-4 mb-4">
+                      <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                        {featuredPost.category}
+                      </span>
+                      <time className="text-gray-500 text-sm">
+                        {formatDate(featuredPost.date)}
+                      </time>
                     </div>
-                    <div className="md:w-1/2 p-8 md:p-12">
-                      <div className="flex items-center gap-4 mb-4">
-                        <span className="px-3 py-1 bg-[#00538d]/10 text-[#00538d] rounded-full text-sm font-medium">
-                          {featuredPost.category}
-                        </span>
-                        <time className="text-gray-500 text-sm">
-                          {formatDate(featuredPost.date)}
-                        </time>
-                      </div>
-                      <h2 className="text-3xl font-bold mb-4 text-gray-900">
-                        {featuredPost.title}
-                      </h2>
-                      <p className="text-gray-600 mb-6">
-                        {featuredPost.excerpt}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-gray-500 text-sm">
-                          Par {featuredPost.author}
-                        </span>
-                        <Link
-                          href={`/blog/${featuredPost.id}`}
-                          className="inline-flex items-center gap-2 text-[#00538d] hover:text-[#003e6b] font-medium"
-                        >
-                          Lire la suite
-                          <svg
-                            className="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
-                        </Link>
-                      </div>
+                    <h3 className="text-3xl font-bold mb-4 text-gray-900">
+                      {featuredPost.title}
+                    </h3>
+                    <p className="text-gray-600 mb-6 leading-relaxed">
+                      {featuredPost.excerpt}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-500 text-sm">
+                        Par {featuredPost.author}
+                      </span>
+                      <Link
+                        href={`/blog/${featuredPost.id}`}
+                        className="btn btn-primary"
+                      >
+                        Lire la suite
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -161,91 +191,105 @@ export default function BlogPage() {
         )}
 
         {/* Regular Posts Grid */}
-        <section className="py-12">
-          <div className="container mx-auto px-4">
-            <div className="max-w-7xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {regularPosts.map((post) => (
-                  <article
-                    key={post.id}
-                    className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
-                  >
-                    <div className="relative h-48">
-                      <Image
-                        src={post.image}
-                        alt={post.title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-center gap-4 mb-4">
-                        <span className="px-3 py-1 bg-[#00538d]/10 text-[#00538d] rounded-full text-sm font-medium">
-                          {post.category}
-                        </span>
-                        <time className="text-gray-500 text-sm">
-                          {formatDate(post.date)}
-                        </time>
-                      </div>
-                      <h3 className="text-xl font-bold mb-2 text-gray-900">
-                        {post.title}
-                      </h3>
-                      <p className="text-gray-600 mb-4 line-clamp-2">
-                        {post.excerpt}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-gray-500 text-sm">
-                          Par {post.author}
-                        </span>
-                        <Link
-                          href={`/blog/${post.id}`}
-                          className="inline-flex items-center gap-2 text-[#00538d] hover:text-[#003e6b] font-medium"
-                        >
-                          Lire la suite
-                          <svg
-                            className="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
-                        </Link>
-                      </div>
-                    </div>
-                  </article>
-                ))}
+        <section className="py-24 bg-gray-50">
+          <div className="container mx-auto px-6 max-w-6xl">
+            <div className="section-header-creative mb-16">
+              <div>
+                <h2 className="section-title-creative">
+                  Toutes les Actualités
+                </h2>
+                <p className="section-description-creative">
+                  Restez informés de toute l&apos;actualité de notre
+                  établissement
+                </p>
               </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {regularPosts.map((post) => (
+                <article
+                  key={post.id}
+                  className="card overflow-hidden transition-all duration-300 hover:transform hover:-translate-y-1"
+                >
+                  <div className="card-image">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      width={400}
+                      height={250}
+                      className="w-full h-48 object-cover"
+                    />
+                  </div>
+                  <div className="card-content p-6">
+                    <div className="card-meta mb-4">
+                      <span className="card-tag">{post.category}</span>
+                      <time className="text-gray-500 text-sm">
+                        {formatDate(post.date)}
+                      </time>
+                    </div>
+                    <h3 className="card-title mb-3">{post.title}</h3>
+                    <p className="card-description mb-4">{post.excerpt}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-500 text-sm">
+                        Par {post.author}
+                      </span>
+                      <Link
+                        href={`/blog/${post.id}`}
+                        className="text-primary hover:text-primary/80 font-medium text-sm flex items-center gap-1"
+                      >
+                        Lire la suite
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Newsletter Section */}
-        <section className="bg-gray-50 py-16">
-          <div className="container mx-auto px-4">
-            <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-4 text-gray-900">
-                Restez informé
-              </h2>
-              <p className="text-gray-600 mb-8">
-                Inscrivez-vous à notre newsletter pour recevoir les dernières
-                actualités de l&apos;école
-              </p>
-              <form className="flex gap-4 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Votre adresse email"
-                  className="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#00538d]"
-                />
-                <button type="submit" className="btn btn-primary">
-                  S&apos;inscrire
-                </button>
-              </form>
+        {/* Newsletter CTA */}
+        <section className="py-24 bg-white">
+          <div className="container mx-auto px-6 max-w-4xl">
+            <div className="text-center">
+              <div className="bg-gray-50 p-12 border-l-4 border-accent">
+                <div className="flex items-start gap-4 justify-center">
+                  <div className="text-4xl text-accent leading-none">✉</div>
+                  <div className="text-center">
+                    <h2 className="text-3xl font-bold mb-4 text-gray-900">
+                      Restez informé
+                    </h2>
+                    <p className="text-gray-600 mb-8">
+                      Inscrivez-vous à notre newsletter pour recevoir les
+                      dernières actualités de l&apos;école directement dans
+                      votre boîte mail.
+                    </p>
+                    <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                      <input
+                        type="email"
+                        placeholder="Votre adresse email"
+                        className="flex-1 px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary text-gray-900"
+                        required
+                      />
+                      <button type="submit" className="btn btn-primary">
+                        S&apos;inscrire
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
