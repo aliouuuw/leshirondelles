@@ -61,7 +61,6 @@ const Navigation = () => {
               alt="Les Hirondelles"
               width={30}
               height={40}
-              className="w-12 h-10"
             />
             <span className="font-semibold text-lg">Les Hirondelles</span>
           </Link>
