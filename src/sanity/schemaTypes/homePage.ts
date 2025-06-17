@@ -87,6 +87,7 @@ export default defineType({
                     new URL(value || "");
                     return true;
                   } catch (error) {
+                    console.error(error);
                     return "Please enter a valid URL, internal path (/page), or anchor link (#section)";
                   }
                 }),

@@ -47,6 +47,7 @@ export default defineType({
           { title: "International", value: "international" },
           { title: "Environnement", value: "environnement" },
         ],
+        layout: "radio",
       },
       validation: (Rule) => Rule.required(),
     }),
