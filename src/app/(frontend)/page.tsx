@@ -3,6 +3,33 @@ import React from "react";
 import "./styles.css";
 import Image from "next/image";
 import { ImageSlider } from "@/components/ImageSlider";
+import {
+  getHomePage,
+  type HomePage,
+  type Button,
+  type Statistic,
+  type Program,
+  type MissionValue,
+  type BlogPost,
+  type Testimonial,
+  type CtaCard,
+} from "@/sanity/lib/utils";
+import { urlFor } from "@/sanity/lib/image";
+import { PortableText } from "@portabletext/react";
+import { PortableTextBlock } from "sanity";
+
+// Add this helper function near the top of your file
+const getCategoryTitle = (value: string): string => {
+  const categoryMap: Record<string, string> = {
+    actualites: "Actualités",
+    evenements: "Événements",
+    succes: "Succès",
+    infrastructure: "Infrastructure",
+    international: "International",
+    environnement: "Environnement",
+  };
+  return categoryMap[value] || value;
+};
 
 // Helper to render Payload blocks
 // const renderBlock = (block: any, index: number) => {
@@ -79,81 +106,97 @@ import { ImageSlider } from "@/components/ImageSlider";
 //   },
 // ];
 
-const schoolLevels = [
-  {
-    title: "Préscolaire",
-    description:
-      "Un environnement bienveillant pour les premiers apprentissages",
-    ageRange: "3-5 ans",
-    highlights: ["Éveil artistique", "Développement moteur", "Socialisation"],
-    image: "/images/programs/preschool.jpg",
-  },
-  {
-    title: "Primaire",
-    description: "Fondations solides pour l'apprentissage académique",
-    ageRange: "6-10 ans",
-    highlights: ["Français & Mathématiques", "Sciences", "Langues étrangères"],
-    image: "/images/programs/primary.jpg",
-  },
-  {
-    title: "Collège",
-    description: "Préparation à l'excellence académique et personnelle",
-    ageRange: "11-15 ans",
-    highlights: ["Préparation BFEM", "Clubs & activités", "Orientation"],
-    image: "/images/programs/middleschool.jpg",
-  },
-];
+// const schoolLevels = [
+//   {
+//     title: "Préscolaire",
+//     description:
+//       "Un environnement bienveillant pour les premiers apprentissages",
+//     ageRange: "3-5 ans",
+//     highlights: ["Éveil artistique", "Développement moteur", "Socialisation"],
+//     image: "/images/programs/preschool.jpg",
+//   },
+//   {
+//     title: "Primaire",
+//     description: "Fondations solides pour l'apprentissage académique",
+//     ageRange: "6-10 ans",
+//     highlights: ["Français & Mathématiques", "Sciences", "Langues étrangères"],
+//     image: "/images/programs/primary.jpg",
+//   },
+//   {
+//     title: "Collège",
+//     description: "Préparation à l'excellence académique et personnelle",
+//     ageRange: "11-15 ans",
+//     highlights: ["Préparation BFEM", "Clubs & activités", "Orientation"],
+//     image: "/images/programs/middleschool.jpg",
+//   },
+// ];
 
-const testimonials = [
-  {
-    quote:
-      "Les Hirondelles a donné à ma fille la confiance et les compétences nécessaires pour réussir. L'équipe pédagogique est exceptionnelle.",
-    author: "Mme Fatou Diop",
-    role: "Parent d'élève",
-    image: "/images/parent1.png",
-  },
-  {
-    quote:
-      "Une école qui allie excellence académique et valeurs humaines. Mon fils s'épanouit chaque jour.",
-    author: "M. Amadou Sall",
-    role: "Parent d'élève",
-    image: "/images/parent2.png",
-  },
-];
+// const testimonials = [
+//   {
+//     quote:
+//       "Les Hirondelles a donné à ma fille la confiance et les compétences nécessaires pour réussir. L'équipe pédagogique est exceptionnelle.",
+//     author: "Mme Fatou Diop",
+//     role: "Parent d'élève",
+//     image: "/images/parent1.png",
+//   },
+//   {
+//     quote:
+//       "Une école qui allie excellence académique et valeurs humaines. Mon fils s'épanouit chaque jour.",
+//     author: "M. Amadou Sall",
+//     role: "Parent d'élève",
+//     image: "/images/parent2.png",
+//   },
+// ];
 
-const newsEvents = [
-  {
-    title: "Journée Portes Ouvertes",
-    date: "15 Mars 2024",
-    description:
-      "Venez découvrir notre établissement et rencontrer nos équipes",
-    type: "Événement",
-  },
-  {
-    title: "Concours de Sciences",
-    date: "22 Mars 2024",
-    description: "Nos élèves de collège participent au concours national",
-    type: "Actualité",
-  },
-  {
-    title: "Spectacle de fin d'année",
-    date: "10 Juin 2024",
-    description: "Représentation théâtrale et musicale de nos élèves",
-    type: "Événement",
-  },
-];
+// const newsEvents = [
+//   {
+//     title: "Journée Portes Ouvertes",
+//     date: "15 Mars 2024",
+//     description:
+//       "Venez découvrir notre établissement et rencontrer nos équipes",
+//     type: "Événement",
+//   },
+//   {
+//     title: "Concours de Sciences",
+//     date: "22 Mars 2024",
+//     description: "Nos élèves de collège participent au concours national",
+//     type: "Actualité",
+//   },
+//   {
+//     title: "Spectacle de fin d'année",
+//     date: "10 Juin 2024",
+//     description: "Représentation théâtrale et musicale de nos élèves",
+//     type: "Événement",
+//   },
+// ];
 
-export default function HomePage() {
+export const revalidate = 60;
+
+export default async function HomePage() {
+  const { data } = await getHomePage();
+
+  if (!data) {
+    return <div>Loading...</div>; // Or a custom fallback component
+  }
+
+  const ptMissionComponents = {
+    block: {
+      large: ({ children }: { children?: React.ReactNode }) => (
+        <p className="mission-text-large">{children}</p>
+      ),
+      normal: ({ children }: { children?: React.ReactNode }) => (
+        <p className="mission-text-regular">{children}</p>
+      ),
+    },
+  };
+
   return (
     <div className="min-h-screen">
       <main>
         {/* Hero Section - Condensed Content */}
         <section className="hero-background-optimized">
           <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center z-0">
-            <ImageSlider />
-            {/* <h1 className="text-purple text-4xl font-bold">
-              Background
-            </h1> */}
+            <ImageSlider images={data.heroImages} />
           </div>
           <div className="z-10 absolute top-0 left-0 w-full h-full bg-linear-to-r from-[var(--primary)] to-[var(--accent)]/50 opacity-50"></div>
           <div className="container z-20">
@@ -161,36 +204,28 @@ export default function HomePage() {
               <div className="hero-badge-elegant">
                 <span>Excellence depuis 20+ ans</span>
               </div>
-              <h1 className="hero-title-background">
-                Former les leaders
-                <br />
-                <span className="hero-subtitle">de demain</span>
-              </h1>
-              <p className="hero-description-background">
-                Excellence académique et valeurs humaines du préscolaire au
-                collège.
-              </p>
+              <h1 className="hero-title-background">{data.heroTitle}</h1>
+              <p className="hero-description-background">{data.heroSubtitle}</p>
               <div className="hero-actions-background">
-                <a href="/programs" className="btn btn-primary-hero">
-                  Nos programmes
-                </a>
-                <a href="/visit" className="btn btn-secondary-hero">
-                  Planifier une visite
-                </a>
+                {data.heroButtons?.map((button: Button, index: number) => (
+                  <a
+                    key={index}
+                    href={button.link}
+                    className={`btn ${button.isPrimary ? "btn-primary-hero" : "btn-secondary-hero"}`}
+                  >
+                    {button.label}
+                  </a>
+                ))}
               </div>
               <div className="hero-stats-inline">
-                <div className="hero-stat-inline">
-                  <span className="stat-number-inline">500+</span>
-                  <span className="stat-label-inline">Élèves</span>
-                </div>
-                <div className="hero-stat-inline">
-                  <span className="stat-number-inline">98%</span>
-                  <span className="stat-label-inline">Réussite</span>
-                </div>
-                <div className="hero-stat-inline">
-                  <span className="stat-number-inline">20+</span>
-                  <span className="stat-label-inline">Années</span>
-                </div>
+                {data.statistics
+                  ?.slice(0, 3)
+                  .map((stat: Statistic, index: number) => (
+                    <div key={index} className="hero-stat-inline">
+                      <span className="stat-number-inline">{stat.value}</span>
+                      <span className="stat-label-inline">{stat.label}</span>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
@@ -200,35 +235,22 @@ export default function HomePage() {
         <section className="stats-creative">
           <div className="stats-marquee">
             <div className="stats-track">
-              <div className="stat-item-creative">
-                <span className="stat-number">500+</span>
-                <span className="stat-label">Élèves épanouis</span>
-              </div>
-              <div className="stat-item-creative">
-                <span className="stat-number">20+</span>
-                <span className="stat-label">Années d&apos;excellence</span>
-              </div>
-              <div className="stat-item-creative">
-                <span className="stat-number">98%</span>
-                <span className="stat-label">Taux de réussite</span>
-              </div>
-              <div className="stat-item-creative">
-                <span className="stat-number">50+</span>
-                <span className="stat-label">Enseignants dévoués</span>
-              </div>
-              <div className="stat-item-creative">
-                <span className="stat-number">15</span>
-                <span className="stat-label">Activités extra-scolaires</span>
-              </div>
+              {data.statistics?.map((stat: Statistic, index: number) => (
+                <div key={index} className="stat-item-creative">
+                  <span className="stat-number">{stat.value}</span>
+                  <span className="stat-label">{stat.label}</span>
+                </div>
+              ))}
               {/* Duplicate for seamless loop */}
-              <div className="stat-item-creative">
-                <span className="stat-number">500+</span>
-                <span className="stat-label">Élèves épanouis</span>
-              </div>
-              <div className="stat-item-creative">
-                <span className="stat-number">20+</span>
-                <span className="stat-label">Années d&apos;excellence</span>
-              </div>
+              {data.statistics?.map((stat: Statistic, index: number) => (
+                <div
+                  key={index + (data.statistics?.length || 0)}
+                  className="stat-item-creative"
+                >
+                  <span className="stat-number">{stat.value}</span>
+                  <span className="stat-label">{stat.label}</span>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -239,40 +261,43 @@ export default function HomePage() {
             <div className="section-header-creative">
               <div className="section-number">01</div>
               <div>
-                <h2 className="section-title-creative">Nos Programmes</h2>
+                <h2 className="section-title-creative">
+                  {data.schoolLevelsTitle}
+                </h2>
                 <p className="section-description-creative">
-                  Un parcours éducatif complet qui accompagne chaque élève vers
-                  l&apos;excellence
+                  {data.schoolLevelsDescription}
                 </p>
               </div>
             </div>
 
             <div className="programs-grid-simplified">
-              {schoolLevels.map((level, index) => (
+              {data.schoolLevels?.map((level: Program, index: number) => (
                 <div key={index} className="program-card-simplified">
                   <div className="program-image-simplified">
-                    <Image
-                      src={level.image}
-                      alt={level.title}
-                      width={1000}
-                      height={1000}
-                      quality={100}
-                      className="w-full h-full object-cover"
-                    />
+                    {level.image && (
+                      <Image
+                        src={urlFor(level.image).width(1000).height(1000).url()}
+                        alt={level.title}
+                        width={1000}
+                        height={1000}
+                        quality={100}
+                        className="w-full h-full object-cover"
+                      />
+                    )}
                     <div className="program-age-badge">{level.ageRange}</div>
                   </div>
                   <div className="program-content-simplified">
                     <h3 className="program-title-simplified">{level.title}</h3>
                     <p className="program-description-simplified">
-                      {level.description}
+                      {level.description as string}
                     </p>
                     <ul className="program-highlights-simplified">
-                      {level.highlights.map((highlight, i) => (
+                      {level.highlights?.map((highlight: string, i: number) => (
                         <li key={i}>{highlight}</li>
                       ))}
                     </ul>
                     <a
-                      href={`/programs/${level.title.toLowerCase()}`}
+                      href={`/programs/${level.slug.current}`}
                       className="program-link-simplified"
                     >
                       En savoir plus →
@@ -290,49 +315,34 @@ export default function HomePage() {
             <div className="section-header-creative">
               <div className="section-number">02</div>
               <div>
-                <h2 className="section-title-creative">Notre Mission</h2>
+                <h2 className="section-title-creative">{data.missionTitle}</h2>
                 <p className="section-description-creative">
-                  Former les citoyens de demain avec excellence et bienveillance
+                  {data.missionDescription}
                 </p>
               </div>
             </div>
 
             <div className="mission-grid">
               <div className="mission-content-simplified">
-                <p className="mission-text-large">
-                  Nous nous engageons à offrir une éducation de qualité qui
-                  forme les citoyens de demain, cultivant l&apos;excellence
-                  académique tout en développant les valeurs humaines
-                  essentielles.
-                </p>
-                <p className="mission-text-regular">
-                  Depuis notre création, nous accompagnons chaque élève dans son
-                  épanouissement personnel et sa réussite scolaire, de la
-                  maternelle au collège.
-                </p>
+                {data.missionContent && (
+                  <PortableText
+                    value={data.missionContent as PortableTextBlock[]}
+                    components={ptMissionComponents}
+                  />
+                )}
 
                 <div className="mission-values-simplified">
-                  <div className="value-item-simplified">
-                    <div className="value-icon">🎯</div>
-                    <div>
-                      <h4>Excellence académique</h4>
-                      <p>Des programmes rigoureux et adaptés</p>
-                    </div>
-                  </div>
-                  <div className="value-item-simplified">
-                    <div className="value-icon">🤝</div>
-                    <div>
-                      <h4>Valeurs humaines</h4>
-                      <p>Respect, intégrité et solidarité</p>
-                    </div>
-                  </div>
-                  <div className="value-item-simplified">
-                    <div className="value-icon">🌱</div>
-                    <div>
-                      <h4>Épanouissement personnel</h4>
-                      <p>Développement de chaque potentiel</p>
-                    </div>
-                  </div>
+                  {data.missionValues?.map(
+                    (value: MissionValue, index: number) => (
+                      <div key={index} className="value-item-simplified">
+                        <div className="value-icon">{value.icon}</div>
+                        <div>
+                          <h4>{value.title}</h4>
+                          <p>{value.description}</p>
+                        </div>
+                      </div>
+                    )
+                  )}
                 </div>
 
                 <a href="/about" className="btn btn-primary">
@@ -340,15 +350,27 @@ export default function HomePage() {
                 </a>
               </div>
 
-              <div className="mission-visual-simplified flex justify-center items-center">
-                <div className="mission-image-wrapper h-[400px] w-[350px]">
-                  <Image
+              <div className="h-fit flex justify-center md:justify-end items-center">
+                <div className="relative h-[400px] w-[350px] overflow-hidden">
+                  {data.missionImage && (
+                    <Image
+                      src={urlFor(data.missionImage)
+                        .width(350)
+                        .height(400)
+                        .url()}
+                      alt={data.missionTitle || "Notre mission"}
+                      fill
+                      quality={100}
+                      className="object-cover object-center z-10"
+                    />
+                  )}
+                  {/* <Image
                     src="/images/mission-main.png"
                     alt="Notre mission"
                     fill
                     quality={100}
                     className="object-cover object-center"
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
@@ -361,48 +383,75 @@ export default function HomePage() {
             <div className="section-header-creative">
               <div className="section-number">03</div>
               <div>
-                <h2 className="section-title-creative">Actualités</h2>
+                <h2 className="section-title-creative">
+                  {data.newsSectionTitle}
+                </h2>
                 <p className="section-description-creative">
-                  Découvrez la vie dynamique de notre école
+                  {data.newsSectionDescription}
                 </p>
               </div>
             </div>
 
             <div className="news-magazine-grid">
-              <article className="news-featured">
-                <div className="news-image">
-                  <Image
-                    src="/images/news-featured.jpg"
-                    alt="Actualité principale"
-                    width={100}
-                    height={100}
-                    quality={100}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="news-category">Événement</div>
-                </div>
-                <div className="news-content">
-                  <time className="news-date">15 Mars 2024</time>
-                  <h3 className="news-title">Journée Portes Ouvertes 2024</h3>
-                  <p className="news-excerpt">
-                    Venez découvrir notre établissement, rencontrer nos équipes
-                    pédagogiques et visiter nos installations modernes.
-                  </p>
-                  <a href="/news/portes-ouvertes" className="news-link">
-                    Lire la suite →
-                  </a>
-                </div>
-              </article>
+              {data.featuredNews && (
+                <article className="news-featured">
+                  <div className="news-image">
+                    {data.featuredNews.mainImage && (
+                      <Image
+                        src={urlFor(data.featuredNews.mainImage)
+                          .width(1000)
+                          .height(600)
+                          .url()}
+                        alt={data.featuredNews.title}
+                        width={100}
+                        height={100}
+                        quality={100}
+                        className="w-full h-full object-cover"
+                      />
+                    )}
+                    <div className="news-category">
+                      {data.featuredNews.category &&
+                        getCategoryTitle(data.featuredNews.category)}
+                    </div>
+                  </div>
+                  <div className="news-content">
+                    <time className="news-date">
+                      {new Date(
+                        data.featuredNews.publishedAt
+                      ).toLocaleDateString("fr-FR", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </time>
+                    <h3 className="news-title">{data.featuredNews.title}</h3>
+                    <p className="news-excerpt">{data.featuredNews.excerpt}</p>
+                    <a
+                      href={`/blog/${data.featuredNews.slug.current}`}
+                      className="news-link"
+                    >
+                      Lire la suite →
+                    </a>
+                  </div>
+                </article>
+              )}
 
               <div className="news-secondary">
-                {newsEvents.slice(1).map((item, index) => (
+                {data.latestNews?.map((item: BlogPost, index: number) => (
                   <article key={index} className="news-card-small">
                     <div className="news-meta">
-                      <span className="news-category-small">{item.type}</span>
-                      <time className="news-date-small">{item.date}</time>
+                      <span className="news-category-small">
+                        {item.category && getCategoryTitle(item.category)}
+                      </span>
+                      <time className="news-date-small">
+                        {new Date(item.publishedAt).toLocaleDateString(
+                          "fr-FR",
+                          { year: "numeric", month: "long", day: "numeric" }
+                        )}
+                      </time>
                     </div>
                     <h4 className="news-title-small">{item.title}</h4>
-                    <p className="news-excerpt-small">{item.description}</p>
+                    <p className="news-excerpt-small">{item.excerpt}</p>
                   </article>
                 ))}
               </div>
@@ -423,39 +472,46 @@ export default function HomePage() {
               <div className="section-number">04</div>
               <div>
                 <h2 className="section-title-creative">
-                  Ce qu&apos;ils disent de nous
+                  {data.testimonialsSectionTitle}
                 </h2>
               </div>
             </div>
 
             <div className="testimonials-carousel">
               <div className="testimonials-track">
-                {testimonials.map((testimonial, index) => (
-                  <div key={index} className="testimonial-card-creative">
-                    <div className="testimonial-content-creative">
-                      <div className="testimonial-quote-creative">
-                        <span className="quote-mark"></span>
-                        <p>{testimonial.quote}</p>
-                      </div>
-                      <div className="testimonial-author-creative">
-                        <div className="author-avatar">
-                          <Image
-                            src={testimonial.image}
-                            alt={testimonial.author}
-                            width={100}
-                            height={100}
-                            quality={100}
-                            className="w-full h-full object-cover"
-                          />
+                {data.testimonials?.map(
+                  (testimonial: Testimonial, index: number) => (
+                    <div key={index} className="testimonial-card-creative">
+                      <div className="testimonial-content-creative">
+                        <div className="testimonial-quote-creative">
+                          <span className="quote-mark"></span>
+                          <p>{testimonial.quote}</p>
                         </div>
-                        <div className="author-info">
-                          <h4>{testimonial.author}</h4>
-                          <p>{testimonial.role}</p>
+                        <div className="testimonial-author-creative">
+                          <div className="author-avatar">
+                            {testimonial.avatar && (
+                              <Image
+                                src={urlFor(testimonial.avatar)
+                                  .width(100)
+                                  .height(100)
+                                  .url()}
+                                alt={testimonial.author}
+                                width={100}
+                                height={100}
+                                quality={100}
+                                className="w-full h-full object-cover"
+                              />
+                            )}
+                          </div>
+                          <div className="author-info">
+                            <h4>{testimonial.author}</h4>
+                            <p>{testimonial.role}</p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                )}
               </div>
             </div>
           </div>
@@ -466,42 +522,27 @@ export default function HomePage() {
           <div className="container">
             <div className="cta-content">
               <div className="cta-text">
-                <h2 className="cta-title">
-                  Prêt à rejoindre notre communauté ?
-                </h2>
-                <p className="cta-description">
-                  Découvrez comment Les Hirondelles peut accompagner votre
-                  enfant vers l&apos;excellence et la réussite.
-                </p>
+                <h2 className="cta-title">{data.ctaTitle}</h2>
+                <p className="cta-description">{data.ctaDescription}</p>
               </div>
               <div className="cta-actions">
-                <div className="cta-card">
-                  <div className="cta-card-icon">📅</div>
-                  <h3>Planifier une visite</h3>
-                  <p>Découvrez nos installations</p>
-                  <a href="/visit" className="btn btn-primary">
-                    Réserver
-                  </a>
-                </div>
-                <div className="cta-card">
-                  <div className="cta-card-icon">📋</div>
-                  <h3>Dossier d&apos;inscription</h3>
-                  <p>Téléchargez notre brochure</p>
-                  <a href="/brochure" className="btn btn-secondary">
-                    Télécharger
-                  </a>
-                </div>
-                <div className="cta-card">
-                  <div className="cta-card-icon">💬</div>
-                  <h3>Nous contacter</h3>
-                  <p>Posez vos questions</p>
-                  <a
-                    href="/contact"
-                    className="font-family-poppins font-medium text-[0.875rem] px-[2rem] py-[1rem] tracking-[0.025em] text-white border-1 border-white hover:underline transition-all duration-300 translate-y-0 hover:translate-y-[-1px]"
-                  >
-                    Discuter
-                  </a>
-                </div>
+                {data.ctaCards?.map((card: CtaCard, index: number) => (
+                  <div key={index} className="cta-card">
+                    <div className="cta-card-icon">{card.icon}</div>
+                    <h3>{card.title}</h3>
+                    <p>{card.description}</p>
+                    <a
+                      href={card.link}
+                      className={`btn ${
+                        card.link === "/contact"
+                          ? "font-family-poppins font-medium text-[0.875rem] px-[2rem] py-[1rem] tracking-[0.025em] text-white border-1 border-white hover:underline transition-all duration-300 translate-y-0 hover:translate-y-[-1px]"
+                          : "btn-primary"
+                      }`}
+                    >
+                      {card.linkLabel}
+                    </a>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

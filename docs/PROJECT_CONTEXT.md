@@ -68,14 +68,20 @@ Discipline & Well-being Policy
 - Responsive grid utilities: `.grid`, `.grid-2`, `.grid-3`, `.grid-4`.
 
 ## CMS / Data Architecture (Final Decision)
-We opted for a **custom headless CMS** built on:
-1. **Supabase** – PostgreSQL database, Row-Level-Security, Auth (magic-link email). Tables: `pages`, `blog_posts`, `levels`, `testimonials`, `site_settings`, plus a `media` reference table or JSON columns.
-2. **UploadThing** – handles all media uploads; returned URLs are stored in Supabase.
-3. **Next.js Admin Dashboard** – custom UI (using the same Tailwind design-system) that consumes Supabase JS client for CRUD operations and UploadThing for file input.
+The project uses **Sanity.io** as a headless CMS to manage all dynamic content. This provides a flexible and powerful content backend with a built-in, customizable editing interface (Sanity Studio).
+
+1.  **Sanity.io:** Serves as the single source of truth for content. It handles the database, a real-time API for content delivery, and asset management (image uploads).
+2.  **Next.js Frontend:** The website is built with Next.js and React. It fetches data from Sanity at build time (for static pages) and on-demand (for previews and dynamic content) using GROQ queries.
+3.  **Sanity Studio:** Embedded directly into the Next.js application at the `/studio` route, allowing content managers to edit the website's content in a user-friendly interface.
 
 ### Content Flow
-Content Manager ↔ Next.js Admin Dashboard ↔ Supabase (data) & UploadThing (files)
-Frontend pages fetch data via Supabase helpers; images use stored URLs.
+Content Manager ↔ Sanity Studio (`/studio`) ↔ Sanity.io (data & assets) ↔ Next.js Frontend (data fetching & rendering)
+
+### Key Implementation Details
+- **Schemas:** All content models are defined as schemas in `src/sanity/schemaTypes/`. This includes singleton documents for unique pages (`homePage`, `aboutPage`, etc.) and reusable document types (`program`, `blogPost`, `testimonial`).
+- **Data Fetching:** A centralized utility file (`src/sanity/lib/utils.ts`) contains data-fetching functions (e.g., `getHomePage`, `getAboutPage`) that pair GROQ queries with the Sanity client.
+- **Image Optimization:** Sanity's image pipeline is used via the `@sanity/image-url` library to transform and optimize images on the fly.
+- **Live Preview:** Real-time content previews are enabled for an improved editorial experience.
 
 ### Migration Tasks
 - [ ] Spin up Supabase project & create tables.

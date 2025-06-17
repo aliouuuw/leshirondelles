@@ -2,40 +2,41 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { urlFor } from "@/sanity/lib/image";
 
-const slideshowImages = [
-  "/images/slideshow/IMG_7671.jpg",
-  "/images/slideshow/IMG_7619.jpg",
-  "/images/slideshow/IMG_7524.jpg",
-  "/images/slideshow/IMG_7513.jpg",
-  "/images/slideshow/IMG_6939.jpg",
-  "/images/slideshow/IMG_6897.jpg",
-  "/images/slideshow/IMG_6809.jpg",
-  "/images/slideshow/ELI_8718.JPG",
-];
+interface ImageSliderProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  images: any[]; // Array of Sanity image objects
+}
 
-export const ImageSlider = () => {
+export const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) =>
-        prevIndex === slideshowImages.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 5000); // Change image every 5 seconds
+    if (images.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prevIndex) =>
+          prevIndex === images.length - 1 ? 0 : prevIndex + 1
+        );
+      }, 5000); // Change image every 5 seconds
 
-    return () => clearInterval(interval);
-  }, []);
+      return () => clearInterval(interval);
+    }
+  }, [images.length]);
+
+  if (!images || images.length === 0) {
+    return null; // or a placeholder
+  }
 
   return (
     <div className="relative w-full h-full">
-      {slideshowImages.map((src, index) => (
+      {images.map((image, index) => (
         <Image
-          key={src}
-          src={src}
-          alt={`Slide ${index + 1}`}
+          key={image._key || index} // Use Sanity's _key if available
+          src={urlFor(image).width(1920).height(1080).url()}
+          alt={image.alt || `Slide ${index + 1}`}
           fill
-          priority
+          priority={index === 0} // Prioritize the first image
           quality={95}
           sizes="100vw"
           className={`hero-background-image object-cover object-center brightness-50 transition-opacity duration-1000 ${

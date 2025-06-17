@@ -1,0 +1,75 @@
+import { groq } from "next-sanity";
+
+export const homePageQuery = groq`
+  *[_type == "homePage"][0]{
+    heroTitle,
+    heroSubtitle,
+    heroImages,
+    heroButtons[]{
+      label,
+      link,
+      isPrimary,
+    },
+    statistics[]{
+      value,
+      label,
+    },
+    schoolLevelsTitle,
+    schoolLevelsDescription,
+    schoolLevels[]->{
+      title,
+      slug,
+      ageRange,
+      highlights,
+      image,
+      "description": body[0].children[0].text, // Assuming the first block's first child's text is the description
+    },
+    missionTitle,
+    missionDescription,
+    missionContent,
+    missionValues[]{
+      icon,
+      title,
+      description,
+    },
+    missionImage,
+    newsSectionTitle,
+    newsSectionDescription,
+    featuredNews->{
+      title,
+      slug,
+      excerpt,
+      publishedAt,
+      category,
+      mainImage,
+      author->{name},
+      readTime,
+    },
+    latestNews[]->{
+      title,
+      slug,
+      excerpt,
+      publishedAt,
+      category,
+      mainImage,
+      author->{name},
+      readTime,
+    },
+    testimonialsSectionTitle,
+    testimonials[]->{
+      quote,
+      author,
+      role,
+      avatar,
+    },
+    ctaTitle,
+    ctaDescription,
+    ctaCards[]{
+      icon,
+      title,
+      description,
+      link,
+      linkLabel,
+    },
+  }
+`;

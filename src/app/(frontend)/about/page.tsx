@@ -1,112 +1,19 @@
 import React from "react";
 import Image from "next/image";
-import {
-  FaBullseye,
-  FaHandsHelping,
-  FaLeaf,
-  FaGlobeAmericas,
-  FaLightbulb,
-  FaUsers,
-} from "react-icons/fa";
+import { getAboutPage, type AboutPage, type CoreValue, type HistoryMilestone, type TeamMember, type Button } from "@/sanity/lib/utils";
+import { urlFor } from "@/sanity/lib/image";
+import { PortableText } from "@portabletext/react";
+import { PortableTextBlock } from 'sanity';
 
-const coreValues = [
-  {
-    icon: <FaBullseye className="w-6 h-6" />,
-    title: "Excellence Académique",
-    description:
-      "Viser les plus hauts standards dans l'enseignement et l'apprentissage.",
-  },
-  {
-    icon: <FaHandsHelping className="w-6 h-6" />,
-    title: "Respect & Intégrité",
-    description:
-      "Cultiver un environnement de respect mutuel, d'honnêteté et de responsabilité.",
-  },
-  {
-    icon: <FaLeaf className="w-6 h-6" />,
-    title: "Épanouissement Global",
-    description:
-      "Favoriser le développement intellectuel, social, émotionnel et physique de chaque élève.",
-  },
-  {
-    icon: <FaGlobeAmericas className="w-6 h-6" />,
-    title: "Ouverture sur le Monde",
-    description: "Préparer des citoyens du monde, conscients et engagés.",
-  },
-  {
-    icon: <FaLightbulb className="w-6 h-6" />,
-    title: "Innovation Pédagogique",
-    description:
-      "Intégrer des méthodes modernes pour un apprentissage stimulant.",
-  },
-  {
-    icon: <FaUsers className="w-6 h-6" />,
-    title: "Esprit de Communauté",
-    description:
-      "Construire une communauté scolaire solidaire et bienveillante.",
-  },
-];
+export const revalidate = 60;
 
-const historyMilestones = [
-  {
-    year: "2003",
-    title: "Fondation de L'Institution",
-    description:
-      "Création de Les Hirondelles avec la vision d'une éducation d'excellence au Sénégal.",
-    image: "/images/about/history-1.jpg",
-  },
-  {
-    year: "2008",
-    title: "Première Promotion du Primaire",
-    description:
-      "Célébration de nos premiers diplômés du cycle primaire, marquant une étape clé.",
-    image: "/images/about/history-2.jpg",
-  },
-  {
-    year: "2015",
-    title: "Expansion avec le Collège",
-    description:
-      "Ouverture du cycle collégial pour offrir un parcours éducatif continu et cohérent.",
-    image: "/images/about/history-3.jpg",
-  },
-  {
-    year: "2020",
-    title: "Modernisation des Infrastructures",
-    description:
-      "Investissement majeur dans nos locaux et équipements pour un cadre d'apprentissage optimal.",
-    image: "/images/about/history-4.jpg",
-  },
-  {
-    year: "Aujourd'hui",
-    title: "Vers de Nouveaux Horizons",
-    description:
-      "Fiers de notre héritage, nous continuons d'innover pour former les leaders de demain.",
-    image: "/images/about/history-5.jpg",
-  },
-];
+export default async function AboutPage() {
+  const { data } = await getAboutPage();
 
-const leadershipTeam = [
-  {
-    name: "Mme. NDIAYE Cheikh SY",
-    role: "Déclarante Responsable",
-    image: "/images/team/supervisor.jpg",
-    bio: "Mme. NDIAYE ,fondatrice de l'école, est dédiée à la gestion administrative de l'école, favorisant un environnement scolaire positif et inclusif pour tous.",
-  },
-  {
-    name: "Mme. Ndiaye Fatou Dabo",
-    role: "Directrice Générale",
-    image: "/images/team/director.jpg",
-    bio: "Avec plus de 20 ans d'expérience dans l'éducation, Mme. Ndiaye inspire notre vision stratégique et notre engagement envers l'excellence.",
-  },
-  {
-    name: "M. Aliou GOUDIABY",
-    role: "Gestionnaire Pédagogique",
-    image: "/images/team/pedagogical-lead.jpg",
-    bio: "Passionné par l'innovation pédagogique, M. GOUDIABY veille à la qualité de nos programmes et à l'épanouissement de chaque élève.",
-  },
-];
+  if (!data) {
+    return <div>Loading...</div>; // Or a custom fallback component
+  }
 
-export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 pt-20">
       {/* Hero Section - Unique Approach */}
@@ -124,21 +31,19 @@ export default function AboutPage() {
               <div className="space-y-6">
                 <h1 className="text-5xl lg:text-7xl font-bold leading-none">
                   <span className="block text-gray-900">
-                    Notre Histoire & Vision
+                    {data.heroTitle}
                   </span>
                 </h1>
 
                 <div className="max-w-xl">
                   <p className="text-xl text-gray-600 leading-relaxed mb-6">
-                    Depuis plus de deux décennies, nous cultivons
-                    l&apos;excellence éducative au cœur du Sénégal, formant les
-                    leaders de demain avec passion et dévouement.
+                    {data.heroDescription}
                   </p>
 
                   <div className="flex items-center gap-4 text-sm text-gray-500">
-                    <span>Fondée en 2003</span>
-                    <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-                    <span>Dakar, Sénégal</span>
+                    {data.foundedYear && <span>Fondée en {data.foundedYear}</span>}
+                    {data.foundedYear && data.location && <div className="w-1 h-1 bg-gray-400 rounded-full"></div>}
+                    {data.location && <span>{data.location}</span>}
                   </div>
                 </div>
               </div>
@@ -151,11 +56,10 @@ export default function AboutPage() {
                   </div>
                   <div>
                     <p className="text-lg italic text-gray-700 mb-3">
-                      Former les citoyens de demain en alliant excellence
-                      académique, valeurs humaines et ouverture sur le monde.
+                      {data.missionQuote}
                     </p>
                     <div className="text-sm font-semibold text-primary">
-                      — Notre Mission Fondamentale
+                      — {data.missionQuoteAuthor}
                     </div>
                   </div>
                 </div>
@@ -168,12 +72,14 @@ export default function AboutPage() {
                 {/* Main Image */}
                 <div className="relative h-[500px] w-full">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10"></div>
-                  <Image
-                    src="/images/about/school-heritage.jpg"
-                    alt="Héritage Les Hirondelles"
-                    fill
-                    className="object-cover mix-blend-multiply"
-                  />
+                  {data.heroImage && (
+                    <Image
+                      src={urlFor(data.heroImage).width(800).height(500).url()}
+                      alt={data.heroTitle || "About Hero"}
+                      fill
+                      className="object-cover mix-blend-multiply"
+                    />
+                  )}
                 </div>
 
                 {/* Overlay Content */}
@@ -206,15 +112,14 @@ export default function AboutPage() {
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="section-header-creative mb-16">
             <div>
-              <h2 className="section-title-creative">Nos Valeurs</h2>
+              <h2 className="section-title-creative">{data.coreValuesTitle}</h2>
               <p className="section-description-creative">
-                Les principes qui guident notre approche éducative et façonnent
-                l&apos;expérience de chaque élève.
+                {data.coreValuesDescription}
               </p>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {coreValues.map((value, index) => (
+            {data.coreValues?.map((value: CoreValue, index: number) => (
               <div
                 key={index}
                 className="card p-8 transition-all duration-300 hover:transform hover:-translate-y-1"
@@ -237,10 +142,9 @@ export default function AboutPage() {
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="section-header-creative mb-20">
             <div>
-              <h2 className="section-title-creative">Notre Parcours</h2>
+              <h2 className="section-title-creative">{data.historyTitle}</h2>
               <p className="section-description-creative">
-                Une histoire d&apos;engagement et de croissance continue dans
-                l&apos;excellence éducative.
+                {data.historyDescription}
               </p>
             </div>
           </div>
@@ -248,160 +152,114 @@ export default function AboutPage() {
           {/* Timeline Container */}
           <div className="relative">
             {/* Central Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gray-300 h-full hidden lg:block"></div>
-
-            {/* Timeline Items */}
-            <div className="space-y-32">
-              {historyMilestones.map((milestone, index) => (
+            <div className="absolute left-1/2 -translate-x-1/2 w-0.5 bg-gray-300 h-full hidden md:block"></div>
+            <div className="space-y-16">
+              {data.historyMilestones?.map((milestone: HistoryMilestone, index: number) => (
                 <div
                   key={index}
-                  className={`relative flex items-center ${
-                    index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
-                  } flex-col lg:gap-20 gap-12 group`}
+                  className={`flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 ${
+                    index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                  }`}
                 >
-                  {/* Content Side */}
-                  <div className="lg:w-5/12 w-full">
-                    <div
-                      className={`${index % 2 === 0 ? "lg:text-right lg:pr-12" : "lg:text-left lg:pl-12"} text-center lg:text-left`}
-                    >
-                      {/* Year Badge - Large and Prominent */}
-                      <div
-                        className={`mb-8 ${index % 2 === 0 ? "lg:flex lg:justify-end" : "lg:flex lg:justify-start"} flex justify-center`}
-                      >
-                        <div className="relative">
-                          <div className="text-6xl font-black text-gray-200 leading-none">
-                            {milestone.year}
-                          </div>
-                          <div className="absolute inset-0 text-6xl font-black text-primary leading-none transform translate-x-1 translate-y-1 opacity-20">
-                            {milestone.year}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Content */}
-                      <div className="space-y-6">
-                        <h3 className="text-3xl font-bold color-black leading-tight">
-                          {milestone.title}
-                        </h3>
-                        <p className="text-gray-600 text-lg leading-relaxed max-w-md mx-auto lg:mx-0">
-                          {milestone.description}
-                        </p>
-
-                        {/* Progress Indicator */}
-                        <div
-                          className={`flex items-center gap-4 ${index % 2 === 0 ? "lg:justify-end" : "lg:justify-start"} justify-center`}
-                        >
-                          <div className="w-12 h-0.5 bg-accent"></div>
-                          <div className="text-sm font-semibold text-primary tracking-wider">
-                            ÉTAPE {String(index + 1).padStart(2, "0")}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <div className="md:w-5/12 text-center md:text-right">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                      {milestone.year}
+                    </h3>
+                    <p className="text-lg font-semibold text-primary mb-3">
+                      {milestone.title}
+                    </p>
+                    <p className="text-gray-700 leading-relaxed">
+                      {milestone.description}
+                    </p>
                   </div>
-
-                  {/* Center Point */}
-                  <div className="lg:w-2/12 w-full flex justify-center relative z-10">
-                    <div className="w-4 h-4 bg-primary border-4 border-white shadow-lg transition-all duration-300 group-hover:scale-150 group-hover:bg-accent"></div>
+                  <div className="relative w-6 h-6 rounded-full bg-primary flex items-center justify-center z-10 shrink-0">
+                    <div className="w-3 h-3 rounded-full bg-white"></div>
                   </div>
-
-                  {/* Image Side */}
-                  <div className="lg:w-5/12 w-full">
-                    <div className="relative group/image">
-                      {/* Main Image Container */}
-                      <div className="relative h-96 w-full overflow-hidden bg-white shadow-lg">
-                        <Image
-                          src={milestone.image}
-                          alt={milestone.title}
-                          fill
-                          className="object-cover transition-all duration-700 group-hover/image:scale-105"
-                        />
-
-                        {/* Subtle Overlay */}
-                        <div className="absolute inset-0 bg-primary opacity-0 group-hover/image:opacity-10 transition-opacity duration-500"></div>
-                      </div>
-                    </div>
+                  <div className="md:w-5/12">
+                    {milestone.image && (
+                      <Image
+                        src={urlFor(milestone.image).width(600).height(400).url()}
+                        alt={milestone.title}
+                        width={600}
+                        height={400}
+                        quality={90}
+                        className="rounded-lg shadow-lg"
+                      />
+                    )}
                   </div>
                 </div>
               ))}
             </div>
-
-            {/* Timeline End Marker */}
-            <div className="flex justify-center mt-20">
-              <div className="w-8 h-8 bg-accent transform rotate-45"></div>
-            </div>
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* Leadership Team Section */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <div className="section-header-creative mb-16">
-            <div>
-              <h2 className="section-title-creative">
-                Notre Équipe de Direction
-              </h2>
-              <p className="section-description-creative">
-                Des professionnels dévoués qui guident notre institution vers
-                l&apos;excellence.
-              </p>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {leadershipTeam.map((member, index) => (
-              <div
-                key={index}
-                className="card overflow-hidden transition-all duration-300 hover:transform hover:-translate-y-1"
-              >
-                <div className="relative h-72 w-full overflow-hidden">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                </div>
-                <div className="p-8">
-                  <h3 className="text-2xl font-semibold mb-3 color-black">
-                    {member.name}
-                  </h3>
-                  <p className="text-primary font-medium mb-4">{member.role}</p>
-                  <p className="text-gray-600 leading-relaxed">{member.bio}</p>
-                </div>
+        {/* Leadership Team Section */}
+        <section className="py-24 bg-white">
+          <div className="container mx-auto px-6 max-w-6xl">
+            <div className="section-header-creative mb-16">
+              <div>
+                <h2 className="section-title-creative">{data.leadershipTitle}</h2>
+                <p className="section-description-creative">
+                  {data.leadershipDescription}
+                </p>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </div>
 
-      {/* Call to Action Section */}
-      <section className="py-24 bg-primary text-white">
-        <div className="container mx-auto px-6 max-w-6xl text-center flex flex-col items-center justify-center">
-          <div className="mb-12">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-white">
-                Rejoignez Notre Communauté
-              </h2>
-              <p className="text-xl text-gray-100 mb-12 max-w-2xl mx-auto leading-relaxed">
-                Découvrez comment Les Hirondelles peut contribuer à
-                l&apos;épanouissement et à la réussite de votre enfant.
-              </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {data.leadershipTeam?.map((member: TeamMember, index: number) => (
+                <div key={index} className="team-card-creative">
+                  <div className="team-image-creative">
+                    {member.image && (
+                      <Image
+                        src={urlFor(member.image).width(400).height(400).url()}
+                        alt={member.name}
+                        width={400}
+                        height={400}
+                        quality={90}
+                        className="w-full h-full object-cover rounded-md"
+                      />
+                    )}
+                  </div>
+                  <div className="team-content-creative">
+                    <h3 className="team-name-creative">{member.name}</h3>
+                    <p className="team-role-creative">{member.role}</p>
+                    {member.bio && typeof member.bio === 'string' ? (
+                      <p className="team-bio-creative">{member.bio}</p>
+                    ) : member.bio && Array.isArray(member.bio) ? (
+                      <PortableText value={member.bio as PortableTextBlock[]} />
+                    ) : null}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="flex flex-wrap justify-center gap-6">
-            <a href="/contact" className="btn btn-accent">
-              Nous Contacter
-            </a>
-            <a
-              href="/inscription"
-              className="font-family-poppins font-medium text-[0.875rem] px-[2rem] py-[1rem] tracking-[0.025em] text-white border-1 border-white hover:underline transition-all duration-300 translate-y-0 hover:translate-y-[-1px]"
-            >
-              Processus d&apos;inscription
-            </a>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-24 bg-primary text-white">
+          <div className="container mx-auto px-6 max-w-6xl text-center">
+            <h2 className="text-4xl font-bold mb-6">
+              {data.ctaSectionTitle}
+            </h2>
+            <p className="text-lg mb-10 opacity-90">
+              {data.ctaSectionDescription}
+            </p>
+            <div className="flex flex-wrap justify-center gap-6">
+              {data.ctaButtons?.map((button: Button, index: number) => (
+                <a
+                  key={index}
+                  href={button.link}
+                  className={`btn ${
+                    button.isPrimary ? "btn-white" : "btn-outline-white"
+                  }`}
+                >
+                  {button.label}
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
     </div>
   );
 }

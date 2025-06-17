@@ -13,89 +13,40 @@ import {
   FaChild,
   FaPaperPlane,
 } from "react-icons/fa";
+import {
+  getContactPage,
+  type ContactPage,
+  type HourEntry,
+  type ContactInfoEntry,
+  type SocialLink,
+  type DepartmentContact,
+} from "@/sanity/lib/utils";
+import { urlFor } from "@/sanity/lib/image";
 
-const contactInfo = [
-  {
-    icon: <FaPhone className="w-6 h-6" />,
-    title: "Téléphone",
-    details: ["+221 33 XXX XX XX", "+221 77 XXX XX XX"],
-    description: "Lundi - Vendredi: 8h00 - 17h00",
-  },
-  {
-    icon: <FaEnvelope className="w-6 h-6" />,
-    title: "Email",
-    details: ["contact@leshirondelles.sn", "inscription@leshirondelles.sn"],
-    description: "Réponse sous 24h",
-  },
-  {
-    icon: <FaMapMarkerAlt className="w-6 h-6" />,
-    title: "Adresse",
-    details: ["Avenue Cheikh Anta Diop", "Dakar, Sénégal"],
-    description: "Face à l'Université Cheikh Anta Diop",
-  },
-  {
-    icon: <FaWhatsapp className="w-6 h-6" />,
-    title: "WhatsApp",
-    details: ["+221 77 XXX XX XX"],
-    description: "Disponible 24h/7j",
-  },
-];
+export const revalidate = 60;
 
-const socialMedia = [
-  {
-    icon: <FaFacebook className="w-6 h-6" />,
-    name: "Facebook",
-    url: "#",
-    handle: "@LesHirondellesSN",
-  },
-  {
-    icon: <FaInstagram className="w-6 h-6" />,
-    name: "Instagram",
-    url: "#",
-    handle: "@leshirondelles_sn",
-  },
-  {
-    icon: <FaLinkedin className="w-6 h-6" />,
-    name: "LinkedIn",
-    url: "#",
-    handle: "Institution Les Hirondelles",
-  },
-];
+// A map to render icons based on their string name from Sanity
+const iconMap: { [key: string]: React.ReactNode } = {
+  FaPhone: <FaPhone className="w-6 h-6" />,
+  FaEnvelope: <FaEnvelope className="w-6 h-6" />,
+  FaMapMarkerAlt: <FaMapMarkerAlt className="w-6 h-6" />,
+  FaWhatsapp: <FaWhatsapp className="w-6 h-6" />,
+  FaFacebook: <FaFacebook className="w-6 h-6" />,
+  FaInstagram: <FaInstagram className="w-6 h-6" />,
+  FaLinkedin: <FaLinkedin className="w-6 h-6" />,
+  FaClock: <FaClock className="w-6 h-6" />,
+  FaUser: <FaUser className="w-6 h-6" />,
+  FaChild: <FaChild className="w-6 h-6" />,
+  FaPaperPlane: <FaPaperPlane className="w-6 h-6" />,
+};
 
-const departmentContacts = [
-  {
-    department: "Direction Générale",
-    contact: "Mme. Aïssatou Diop",
-    email: "direction@leshirondelles.sn",
-    phone: "+221 33 XXX XX XX",
-  },
-  {
-    department: "Admission",
-    contact: "Service des Inscriptions",
-    email: "inscription@leshirondelles.sn",
-    phone: "+221 77 XXX XX XX",
-  },
-  {
-    department: "Vie Scolaire",
-    contact: "Mme. Fatoumata Sarr",
-    email: "viescolaire@leshirondelles.sn",
-    phone: "+221 77 XXX XX XX",
-  },
-  {
-    department: "Comptabilité",
-    contact: "Service Financier",
-    email: "comptabilite@leshirondelles.sn",
-    phone: "+221 33 XXX XX XX",
-  },
-];
+export default async function ContactPage() {
+  const { data } = await getContactPage();
 
-const officeHours = [
-  { day: "Lundi - Vendredi", hours: "8h00 - 17h00" },
-  { day: "Samedi", hours: "8h00 - 12h00" },
-  { day: "Dimanche", hours: "Fermé" },
-];
+  if (!data) {
+    return <div>Loading...</div>; // Or a custom fallback component
+  }
 
-export default function ContactPage() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 pt-20">
       {/* Hero Section */}
@@ -116,48 +67,55 @@ export default function ContactPage() {
 
               <div className="space-y-6">
                 <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
-                  <span className="block text-gray-900">Contactez-nous</span>
+                  <span className="block text-gray-900">{data.heroTitle}</span>
                 </h1>
 
                 <div className="max-w-xl">
                   <p className="text-xl text-gray-600 leading-relaxed mb-6">
-                    Nous sommes là pour répondre à toutes vos questions
-                    concernant l&apos;éducation de votre enfant. N&apos;hésitez
-                    pas à nous contacter par le moyen qui vous convient le
-                    mieux.
+                    {data.heroDescription}
                   </p>
                 </div>
               </div>
 
-              <div className="bg-gray-50 p-8 border-l-4 border-accent">
-                <div className="flex items-start gap-4">
-                  <FaClock className="w-6 h-6 text-accent mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">
-                      Horaires d&apos;ouverture
-                    </h3>
-                    <div className="space-y-1 text-gray-700">
-                      {officeHours.map((schedule, index) => (
-                        <div key={index} className="flex justify-between">
-                          <span>{schedule.day}:</span>
-                          <span className="font-medium">{schedule.hours}</span>
+              {data.officeHoursTitle &&
+                data.officeHours &&
+                data.officeHours.length > 0 && (
+                  <div className="bg-gray-50 p-8 border-l-4 border-accent">
+                    <div className="flex items-start gap-4">
+                      <FaClock className="w-6 h-6 text-accent mt-1" />
+                      <div>
+                        <h3 className="font-semibold text-gray-900 mb-2">
+                          {data.officeHoursTitle}
+                        </h3>
+                        <div className="space-y-1 text-gray-700">
+                          {data.officeHours.map(
+                            (schedule: HourEntry, index: number) => (
+                              <div key={index} className="flex justify-between">
+                                <span>{schedule.day}:</span>
+                                <span className="font-medium">
+                                  {schedule.hours}
+                                </span>
+                              </div>
+                            )
+                          )}
                         </div>
-                      ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                )}
             </div>
 
             <div className="lg:col-span-5">
               <div className="relative">
                 <div className="relative h-[500px] w-full">
-                  <Image
-                    src="/images/contact/contact-hero.jpg"
-                    alt="Contact Les Hirondelles"
-                    fill
-                    className="object-cover"
-                  />
+                  {data.heroImage && (
+                    <Image
+                      src={urlFor(data.heroImage).width(800).height(500).url()}
+                      alt={data.heroTitle || "Contact Hero"}
+                      fill
+                      className="object-cover"
+                    />
+                  )}
                 </div>
                 <div className="absolute -top-6 -left-6 w-12 h-12 bg-accent"></div>
                 <div className="absolute -bottom-6 -right-6 w-8 h-8 bg-primary"></div>
@@ -172,27 +130,29 @@ export default function ContactPage() {
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="section-header-creative mb-16">
             <div>
-              <h2 className="section-title-creative">Nos Coordonnées</h2>
+              <h2 className="section-title-creative">
+                {data.contactInfoTitle}
+              </h2>
               <p className="section-description-creative">
-                Plusieurs moyens de nous joindre pour votre commodité
+                {data.contactInfoDescription}
               </p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {contactInfo.map((info, index) => (
+            {data.contactInfo?.map((info: ContactInfoEntry, index: number) => (
               <div
                 key={index}
                 className="card p-8 text-center transition-all duration-300 hover:transform hover:-translate-y-1"
               >
                 <div className="text-primary mb-6 flex justify-center">
-                  {info.icon}
+                  {info.icon && iconMap[info.icon] ? iconMap[info.icon] : null}
                 </div>
                 <h3 className="text-xl font-semibold mb-4 color-black">
                   {info.title}
                 </h3>
                 <div className="space-y-2 mb-4 text-center">
-                  {info.details.map((detail, i) => (
+                  {info.details.map((detail, i: number) => (
                     <p
                       key={i}
                       className="text-gray-700 break-words whitespace-normal font-medium"
@@ -208,6 +168,100 @@ export default function ContactPage() {
         </div>
       </section>
 
+      {/* Social Media Links */}
+      {data.socialMediaLinks && data.socialMediaLinks.length > 0 && (
+        <section className="py-24 bg-gray-50">
+          <div className="container mx-auto px-6 max-w-6xl">
+            <div className="section-header-creative mb-16 text-center">
+              <div>
+                <h2 className="section-title-creative">
+                  {data.socialMediaTitle}
+                </h2>
+                <p className="section-description-creative">
+                  {data.socialMediaDescription}
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-wrap justify-center gap-8">
+              {data.socialMediaLinks.map((link: SocialLink, index: number) => (
+                <a
+                  key={index}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-primary transition-colors duration-300 flex items-center space-x-3"
+                >
+                  {link.icon && iconMap[link.icon] ? iconMap[link.icon] : null}
+                  <span className="text-lg font-medium">{link.name}</span>
+                  {link.handle && (
+                    <span className="text-sm opacity-75">({link.handle})</span>
+                  )}
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Department Contacts */}
+      {data.departmentContacts && data.departmentContacts.length > 0 && (
+        <section className="py-24 bg-white">
+          <div className="container mx-auto px-6 max-w-6xl">
+            <div className="section-header-creative mb-16">
+              <div>
+                <h2 className="section-title-creative">
+                  {data.departmentContactsTitle}
+                </h2>
+                <p className="section-description-creative">
+                  {data.departmentContactsDescription}
+                </p>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {data.departmentContacts.map(
+                (contact: DepartmentContact, index: number) => (
+                  <div
+                    key={index}
+                    className="bg-gray-50 p-6 rounded-lg shadow-sm"
+                  >
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      {contact.department}
+                    </h3>
+                    {contact.contactPerson && (
+                      <p className="text-gray-700">
+                        Contact: {contact.contactPerson}
+                      </p>
+                    )}
+                    {contact.email && (
+                      <p className="text-gray-700">
+                        Email:{" "}
+                        <a
+                          href={`mailto:${contact.email}`}
+                          className="text-primary hover:underline"
+                        >
+                          {contact.email}
+                        </a>
+                      </p>
+                    )}
+                    {contact.phone && (
+                      <p className="text-gray-700">
+                        Téléphone:{" "}
+                        <a
+                          href={`tel:${contact.phone}`}
+                          className="text-primary hover:underline"
+                        >
+                          {contact.phone}
+                        </a>
+                      </p>
+                    )}
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Contact Form & Map */}
       <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-6 max-w-6xl">
@@ -216,12 +270,9 @@ export default function ContactPage() {
             <div>
               <div className="mb-8">
                 <h2 className="text-3xl font-bold mb-4 color-black">
-                  Envoyez-nous un message
+                  {data.contactFormTitle}
                 </h2>
-                <p className="text-gray-600">
-                  Remplissez ce formulaire et nous vous répondrons dans les plus
-                  brefs délais.
-                </p>
+                <p className="text-gray-600">{data.contactFormDescription}</p>
               </div>
 
               <form className="space-y-6">
@@ -250,185 +301,58 @@ export default function ContactPage() {
                         type="email"
                         required
                         className="w-full pl-10 pr-4 py-3 border border-gray-300 focus:border-primary focus:outline-none transition-colors"
-                        placeholder="votre@email.com"
+                        placeholder="Votre email"
                       />
                     </div>
                   </div>
                 </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Téléphone
-                    </label>
-                    <div className="relative">
-                      <FaPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                      <input
-                        type="tel"
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 focus:border-primary focus:outline-none transition-colors"
-                        placeholder="+221 XX XXX XX XX"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Nom de l&apos;enfant
-                    </label>
-                    <div className="relative">
-                      <FaChild className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                      <input
-                        type="text"
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 focus:border-primary focus:outline-none transition-colors"
-                        placeholder="Nom de votre enfant"
-                      />
-                    </div>
-                  </div>
-                </div>
-
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Sujet *
+                    Sujet
                   </label>
-                  <select
-                    required
+                  <input
+                    type="text"
                     className="w-full px-4 py-3 border border-gray-300 focus:border-primary focus:outline-none transition-colors"
-                  >
-                    <option value="">Choisissez un sujet</option>
-                    <option value="admission">Demande d&apos;admission</option>
-                    <option value="information">
-                      Demande d&apos;information
-                    </option>
-                    <option value="visite">Planifier une visite</option>
-                    <option value="rdv">Prendre rendez-vous</option>
-                    <option value="autre">Autre</option>
-                  </select>
+                    placeholder="Sujet de votre message"
+                  />
                 </div>
-
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Message *
+                    Votre Message *
                   </label>
                   <textarea
+                    rows={5}
                     required
-                    rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 focus:border-primary focus:outline-none transition-colors resize-none"
-                    placeholder="Décrivez votre demande en détail..."
+                    className="w-full px-4 py-3 border border-gray-300 focus:border-primary focus:outline-none transition-colors"
+                    placeholder="Écrivez votre message ici..."
                   ></textarea>
                 </div>
-
                 <button
                   type="submit"
-                  className="w-full btn btn-primary flex items-center justify-center gap-2"
+                  className="btn btn-primary-lg w-full md:w-auto flex items-center justify-center gap-2"
                 >
-                  <FaPaperPlane className="w-4 h-4" />
-                  Envoyer le message
+                  Envoyer le message <FaPaperPlane />
                 </button>
               </form>
             </div>
 
-            {/* Map & Additional Info */}
-            <div className="space-y-8">
-              {/* Map Placeholder */}
-              <div>
-                <h3 className="text-2xl font-bold mb-4 color-black">
-                  Notre Localisation
-                </h3>
-                <div className="bg-gray-300 h-64 flex items-center justify-center text-gray-600">
-                  <div className="text-center">
-                    <FaMapMarkerAlt className="w-8 h-8 mx-auto mb-2" />
-                    <p>Carte interactive</p>
-                    <p className="text-sm">Avenue Cheikh Anta Diop, Dakar</p>
-                  </div>
+            {/* Map */}
+            <div className="relative h-[400px] lg:h-auto rounded-lg overflow-hidden shadow-lg">
+              {data.locationMapUrl ? (
+                <iframe
+                  src={data.locationMapUrl}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen={false}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+              ) : (
+                <div className="flex items-center justify-center h-full bg-gray-200 text-gray-500">
+                  Map not available
                 </div>
-                <p className="text-sm text-gray-600 mt-2">
-                  Face à l&apos;Université Cheikh Anta Diop, près de la station
-                  Total
-                </p>
-              </div>
-
-              {/* Department Contacts */}
-              <div>
-                <h3 className="text-2xl font-bold mb-6 color-black">
-                  Contacts par Service
-                </h3>
-                <div className="space-y-4">
-                  {departmentContacts.map((dept, index) => (
-                    <div key={index} className="card p-6">
-                      <h4 className="font-semibold text-gray-900 mb-2">
-                        {dept.department}
-                      </h4>
-                      <p className="text-gray-700 mb-1">{dept.contact}</p>
-                      <div className="text-sm text-gray-600 space-y-1">
-                        <p>{dept.email}</p>
-                        <p>{dept.phone}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Social Media */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <div className="section-header-creative mb-16">
-            <div>
-              <h2 className="section-title-creative">Suivez-nous</h2>
-              <p className="section-description-creative">
-                Restez connectés avec notre communauté scolaire
-              </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {socialMedia.map((social, index) => (
-              <a
-                key={index}
-                href={social.url}
-                className="card p-8 text-center transition-all duration-300 hover:transform hover:-translate-y-1 group"
-              >
-                <div className="text-primary mb-6 flex justify-center group-hover:text-accent transition-colors">
-                  {social.icon}
-                </div>
-                <h3 className="text-xl font-semibold mb-2 color-black">
-                  {social.name}
-                </h3>
-                <p className="text-gray-600">{social.handle}</p>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-24 bg-primary text-white">
-        <div className="container mx-auto px-6 max-w-6xl text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Prêt à Rejoindre Notre Famille ?
-            </h2>
-            <p className="text-xl text-gray-100 mb-8 leading-relaxed">
-              Contactez-nous dès aujourd&apos;hui pour découvrir comment Les
-              Hirondelles peut accompagner votre enfant vers l&apos;excellence.
-            </p>
-            <div className="flex flex-wrap justify-center gap-6">
-              <a
-                href="tel:+22133XXXXXX"
-                className="btn btn-accent flex items-center gap-2"
-              >
-                <FaPhone className="w-4 h-4" />
-                Appeler Maintenant
-              </a>
-              <a
-                href="https://wa.me/22177XXXXXX"
-                className="flex items-center gap-2 font-family-poppins font-medium text-[0.875rem] px-[2rem] py-[1rem] tracking-[0.025em] text-white border-1 border-white hover:underline transition-all duration-300 translate-y-0 hover:translate-y-[-1px]"
-              >
-                <FaWhatsapp className="w-4 h-4" />
-                WhatsApp
-              </a>
+              )}
             </div>
           </div>
         </div>
