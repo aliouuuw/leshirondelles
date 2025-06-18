@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FaChevronUp } from "react-icons/fa";
+import { Codepen, Pen } from "lucide-react";
 
 const Navigation = () => {
   const [isProgramsOpen, setIsProgramsOpen] = useState(false);
@@ -26,7 +27,7 @@ const Navigation = () => {
     {
       name: "Notre Équipe",
       href: "/team",
-      description: "Rencontrez nos enseignants",
+      description: "Rencontrez notre staff",
     },
     {
       name: "Journal de l'école",
@@ -223,6 +224,15 @@ const Navigation = () => {
               className="hidden lg:inline-flex btn btn-primary"
             >
               Inscription
+            </Link>
+
+            {/* Studio */}
+            <Link
+              href="/studio"
+              target="_blank"
+              className="hidden lg:inline-flex text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full p-2 transition-colors"
+            >
+              <Codepen className="w-4 h-4" />
             </Link>
 
             {/* Mobile Menu Button */}
