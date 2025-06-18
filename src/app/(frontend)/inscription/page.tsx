@@ -83,25 +83,25 @@ export default async function AdmissionsPage() {
                   <div className="flex items-center gap-6 text-sm text-gray-500">
                     {data.inscriptionSteps &&
                       data.inscriptionSteps.length > 0 && (
-                        <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
                           {iconMap.FaClock} {/* Use the icon from the map */}
                           <span>
                             Processus {data.inscriptionSteps.length} étapes
                           </span>
-                        </div>
+                    </div>
                       )}
                   </div>
                 </div>
               </div>
 
               {data.contactCtaTitle && data.contactButtonLabel && (
-                <div className="bg-gray-50 p-8 border-l-4 border-accent">
-                  <div className="flex items-start gap-4">
-                    <FaGraduationCap className="w-6 h-6 text-accent mt-1" />
-                    <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+              <div className="bg-gray-50 p-8 border-l-4 border-accent">
+                <div className="flex items-start gap-4">
+                  <FaGraduationCap className="w-6 h-6 text-accent mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2">
                         {data.contactCtaTitle}
-                      </h3>
+                    </h3>
                       <p className="text-sm text-gray-700">
                         {data.contactCtaDescription}
                       </p>
@@ -121,7 +121,7 @@ export default async function AdmissionsPage() {
               <div className="relative">
                 <div className="relative h-[500px] w-full">
                   {data.heroImage && (
-                    <Image
+                  <Image
                       src={urlFor(data.heroImage).width(800).height(500).url()}
                       alt={data.heroTitle || "Inscription Hero"}
                       fill
@@ -152,23 +152,23 @@ export default async function AdmissionsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {data.inscriptionSteps?.map(
               (process: InscriptionStep, index: number) => (
-                <div
-                  key={index}
+              <div
+                key={index}
                   className="card p-8 transition-all duration-300 hover:transform hover:-translate-y-1 text-center"
                 >
                   <div className="text-primary mb-6 flex justify-center text-4xl">
                     {process.icon && iconMap[process.icon]
                       ? iconMap[process.icon]
                       : null}
-                  </div>
+                </div>
                   <h3 className="text-xl font-semibold mb-3 color-black">
                     {process.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed mb-4">
+                </h3>
+                <p className="text-gray-600 leading-relaxed mb-4">
                     {process.description}
-                  </p>
+                </p>
                   <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
-                    <FaClock className="w-4 h-4" />
+                  <FaClock className="w-4 h-4" />
                     <span>{process.stepNumber}</span>
                   </div>
                 </div>
@@ -180,14 +180,14 @@ export default async function AdmissionsPage() {
 
       {/* Required Documents Section */}
       {data.requiredDocuments && data.requiredDocuments.length > 0 && (
-        <section className="py-24 bg-gray-50">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <div className="section-header-creative mb-16">
-              <div>
+      <section className="py-24 bg-gray-50">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="section-header-creative mb-16">
+            <div>
                 <h2 className="section-title-creative">
                   {data.requiredDocumentsTitle}
                 </h2>
-                <p className="section-description-creative">
+              <p className="section-description-creative">
                   {data.requiredDocumentsDescription}
                 </p>
               </div>
@@ -205,23 +205,23 @@ export default async function AdmissionsPage() {
                   </li>
                 ))}
               </ul>
-            </div>
           </div>
-        </section>
+        </div>
+      </section>
       )}
 
       {/* Tuition Fees Section */}
       {data.feeCategories && data.feeCategories.length > 0 && (
-        <section className="py-24 bg-white">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <div className="section-header-creative mb-16">
-              <div>
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="section-header-creative mb-16">
+            <div>
                 <h2 className="section-title-creative">{data.feesTitle}</h2>
-                <p className="section-description-creative">
+              <p className="section-description-creative">
                   {data.feesDescription}
-                </p>
-              </div>
+              </p>
             </div>
+          </div>
 
             <div className="overflow-x-auto">
               <table className="min-w-full bg-white border-collapse shadow-lg rounded-lg">
@@ -271,15 +271,15 @@ export default async function AdmissionsPage() {
                   )}
                 </tbody>
               </table>
-            </div>
           </div>
-        </section>
+        </div>
+      </section>
       )}
 
       {/* Brochure Download CTA */}
       {data.downloadBrochureCtaTitle && data.brochureFile && (
-        <section className="py-24 bg-primary text-white">
-          <div className="container mx-auto px-6 max-w-6xl text-center">
+      <section className="py-24 bg-primary text-white">
+        <div className="container mx-auto px-6 max-w-6xl text-center">
             <h2 className="text-4xl font-bold mb-6">
               {data.downloadBrochureCtaTitle}
             </h2>
@@ -293,8 +293,8 @@ export default async function AdmissionsPage() {
             >
               <FaDownload /> {data.brochureLabel || "Télécharger la Brochure"}
             </Link>
-          </div>
-        </section>
+        </div>
+      </section>
       )}
     </div>
   );

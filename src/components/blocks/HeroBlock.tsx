@@ -96,3 +96,4 @@ export const HeroBlock = ({
     </section>
   );
 };
+ 

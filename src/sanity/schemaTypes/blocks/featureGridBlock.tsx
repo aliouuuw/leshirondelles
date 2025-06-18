@@ -1,5 +1,6 @@
 import { defineType, defineField } from "sanity";
 import { FaListUl } from "react-icons/fa";
+import { SanityIcon } from "../../../components/SanityIcon";
 
 export default defineType({
   name: "block.featureGrid",
@@ -27,6 +28,7 @@ export default defineType({
         {
           type: "object",
           name: "feature",
+          icon: SanityIcon,
           fields: [
             defineField({
               name: "icon",
@@ -49,6 +51,18 @@ export default defineType({
               rows: 3,
             }),
           ],
+          preview: {
+            select: {
+              title: "title",
+              icon: "icon",
+            },
+            prepare({ title, icon }) {
+              return {
+                title,
+                media: <SanityIcon icon={icon} />,
+              };
+            },
+          },
         },
       ],
       validation: (Rule) => Rule.required().min(1),

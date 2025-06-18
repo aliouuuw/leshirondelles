@@ -38,3 +38,4 @@ export const AchievementsBlock = ({
     </section>
   );
 };
+ 

@@ -38,3 +38,4 @@ export const ScheduleBlock = ({ block }: { block: ScheduleBlockType }) => {
     </section>
   );
 };
+ 
