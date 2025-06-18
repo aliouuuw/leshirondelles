@@ -192,11 +192,10 @@ export default async function ContactPage() {
                   rel="noopener noreferrer"
                   className="text-gray-600 hover:text-primary transition-colors duration-300 flex items-center space-x-3"
                 >
-                  {link.icon && iconMap[link.icon] ? iconMap[link.icon] : null}
-                  <span className="text-lg font-medium">{link.name}</span>
-                  {link.handle && (
-                    <span className="text-sm opacity-75">({link.handle})</span>
-                  )}
+                  {link.platform && iconMap[link.platform]
+                    ? iconMap[link.platform]
+                    : null}
+                  <span className="text-lg font-medium">{link.platform}</span>
                 </Link>
               ))}
             </div>

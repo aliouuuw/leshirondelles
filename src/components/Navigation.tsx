@@ -4,19 +4,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaChevronUp } from "react-icons/fa";
 import { Codepen, Pen } from "lucide-react";
+import { getProgramNavigation } from "@/sanity/lib/utils";
 
-const Navigation = () => {
+const Navigation = ({ programLinks }: { programLinks: any[],}) => {
   const [isProgramsOpen, setIsProgramsOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false);
   const [isDesktopAboutOpen, setIsDesktopAboutOpen] = useState(false);
 
-  const programLinks = [
-    { name: "Préscolaire", href: "/programs/preschool", age: "3-5 ans" },
-    { name: "Primaire", href: "/programs/primary", age: "6-10 ans" },
-    { name: "Collège", href: "/programs/middleschool", age: "11-15 ans" },
-  ];
+  // const programLinks = [
+  //   { name: "Préscolaire", href: "/programs/preschool", age: "3-5 ans" },
+  //   { name: "Primaire", href: "/programs/primary", age: "6-10 ans" },
+  //   { name: "Collège", href: "/programs/middleschool", age: "11-15 ans" },
+  // ];
 
   const aboutLinks = [
     {
@@ -176,18 +177,18 @@ const Navigation = () => {
                 }`}
               >
                 <div className="px-4 py-2">
-                  {programLinks.map((program) => (
+                  {programLinks.map((program, index) => (
                     <Link
-                      key={program.href}
-                      href={program.href}
+                      key={index}
+                      href={`/programs/${program.slug}`}
                       className="group flex items-center justify-between w-full px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors focus:outline-none focus:bg-gray-50 focus:text-blue-600"
                     >
                       <div className="flex flex-col h-[45px]">
                         <span className="font-medium text-gray-900 group-hover:text-[#00538d]">
-                          {program.name}
+                          {program.title}
                         </span>
                         <span className="text-xs text-gray-500 mt-0.5">
-                          {program.age}
+                          {program.ageRange}
                         </span>
                       </div>
                       <svg

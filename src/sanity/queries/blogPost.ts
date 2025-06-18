@@ -29,3 +29,9 @@ export const blogPostBySlugQuery = groq`
     readTime,
   }
 `;
+
+export const blogPostPathsQuery = groq`
+  *[_type == "blogPost" && defined(slug.current)]{
+    "params": { "slug": slug.current }
+  }
+`;

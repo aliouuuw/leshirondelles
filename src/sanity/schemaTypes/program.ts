@@ -28,11 +28,20 @@ export default defineType({
       description: "e.g., 3-5 ans, 6-10 ans",
     }),
     defineField({
+      name: "description",
+      type: "text",
+      title: "Short Description",
+      description:
+        "A brief summary of the program. This is used on listing pages.",
+      rows: 3,
+    }),
+    defineField({
       name: "highlights",
-      title: "Key Highlights",
+      title: "Key Highlights (for summary cards)",
       type: "array",
       of: [{ type: "string" }],
-      description: "List of key features or highlights of this program.",
+      description:
+        "A few key features for display on summary cards (like on the homepage).",
     }),
     defineField({
       name: "image",
@@ -44,50 +53,29 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "body",
-      title: "Program Details",
+      name: "pageBuilder",
       type: "array",
+      title: "Page Sections",
       of: [
+        { type: "block.hero" },
+        { type: "block.achievements" },
+        { type: "block.classLevelTiers" },
+        { type: "block.featureGrid" },
+        { type: "block.schedule" },
+        { type: "block.tabbedContent" },
         {
           type: "block",
           styles: [
             { title: "Normal", value: "normal" },
-            { title: "H1", value: "h1" },
             { title: "H2", value: "h2" },
             { title: "H3", value: "h3" },
             { title: "H4", value: "h4" },
             { title: "Quote", value: "blockquote" },
           ],
-          lists: [
-            { title: "Bullet", value: "bullet" },
-            { title: "Numbered", value: "number" },
-          ],
-          marks: {
-            decorators: [
-              { title: "Strong", value: "strong" },
-              { title: "Emphasis", value: "em" },
-            ],
-            annotations: [
-              {
-                name: "link",
-                type: "object",
-                title: "URL",
-                fields: [
-                  {
-                    name: "href",
-                    type: "url",
-                    title: "URL",
-                  },
-                ],
-              },
-            ],
-          },
         },
-        {
-          type: "image",
-          options: { hotspot: true },
-        },
+        { type: "image", options: { hotspot: true } },
       ],
+      description: "Build the program page by adding and ordering sections.",
     }),
   ],
   preview: {

@@ -37,11 +37,11 @@ This checklist outlines the steps to migrate the website's frontend content to b
     *   For images, use `urlFor(source).width(...).url()` to generate optimized image URLs.
     *   For rich text content (like blog post bodies), integrate `@portabletext/react` for rendering.
     *   **Completed Pages:** `HomePage`, `AboutPage`, `ContactPage`, `InscriptionPage`.
-3.  **[ ] Implement Dynamic Routes (e.g., Blog Posts, Programs):**
+3.  **[x] Implement Dynamic Routes (e.g., Blog Posts, Programs):**
     *   Rename relevant dynamic route folders (e.g., `[id]` to `[slug]` for better SEO and readability).
     *   Implement `generateStaticParams` in dynamic route pages (e.g., `src/app/(frontend)/blog/[slug]/page.tsx`) to pre-render pages at build time.
     *   Fetch individual post data based on the `slug` parameter.
-    *   **Next Step:** Create `src/app/(frontend)/programs/[slug]/page.tsx`.
+    *   **[x] Next Step:** Create `src/app/(frontend)/programs/[slug]/page.tsx`.
 4.  **[ ] Integrate Site-wide Data:**
     *   In `src/app/(frontend)/layout.tsx`, fetch the `siteSettings` document.
     *   Use this data to dynamically populate navigation links, logo, footer content, and other site-wide elements.

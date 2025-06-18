@@ -20,9 +20,9 @@ export const homePageQuery = groq`
       title,
       slug,
       ageRange,
+      description,
       highlights,
       image,
-      "description": body[0].children[0].text, // Assuming the first block's first child's text is the description
     },
     missionTitle,
     missionDescription,

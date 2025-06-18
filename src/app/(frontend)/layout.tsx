@@ -4,6 +4,7 @@ import { Inter, Poppins } from "next/font/google";
 import Navigation from "@/components/Navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { getProgramNavigation } from "@/sanity/lib/utils";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -35,6 +36,7 @@ export const metadata = {
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props;
   const year = new Date().getFullYear();
+  const programLinks = await getProgramNavigation();
 
   return (
     <html lang="fr" suppressHydrationWarning>
@@ -45,7 +47,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
       <body
         className={`${inter.variable} ${poppins.variable} font-sans antialiased`}
       >
-        <Navigation />
+        <Navigation programLinks={programLinks} />
         {children}
         {/* Minimal Footer */}
         <footer className="footer">

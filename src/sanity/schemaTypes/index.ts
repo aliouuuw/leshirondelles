@@ -1,24 +1,25 @@
-import { type SchemaTypeDefinition } from "sanity";
-import homePage from "./homePage";
-import program from "./program";
-import testimonial from "./testimonial";
+import aboutPage from "./aboutPage";
 import author from "./author";
 import blogPost from "./blogPost";
-import aboutPage from "./aboutPage";
 import contactPage from "./contactPage";
+import homePage from "./homePage";
 import inscriptionPage from "./inscriptionPage";
+import program from "./program";
 import siteSettings from "./siteSettings";
+import testimonial from "./testimonial";
+import blocks from "./blocks";
 
-export const schema: { types: SchemaTypeDefinition[] } = {
+export const schema = {
   types: [
-    homePage,
-    program,
-    testimonial,
+    aboutPage,
     author,
     blogPost,
-    aboutPage,
     contactPage,
+    homePage,
     inscriptionPage,
+    program,
     siteSettings,
+    testimonial,
+    ...blocks,
   ],
 };

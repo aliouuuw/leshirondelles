@@ -106,7 +106,7 @@ export default async function AdmissionsPage() {
                         {data.contactCtaDescription}
                       </p>
                       <Link
-                        href={data.contactButtonLink}
+                        href={data.contactButtonLink || ""}
                         className="mt-4 inline-block btn btn-secondary"
                       >
                         {data.contactButtonLabel}

@@ -1,0 +1,67 @@
+import { defineType, defineField } from "sanity";
+import { FaListUl } from "react-icons/fa";
+
+export default defineType({
+  name: "block.featureGrid",
+  title: "Feature Grid",
+  type: "object",
+  icon: FaListUl,
+  fields: [
+    defineField({
+      name: "title",
+      type: "string",
+      title: "Title",
+      description: "Optional title for this section (e.g., Our Activities).",
+    }),
+    defineField({
+      name: "description",
+      type: "text",
+      title: "Description",
+      rows: 3,
+    }),
+    defineField({
+      name: "features",
+      type: "array",
+      title: "Features",
+      of: [
+        {
+          type: "object",
+          name: "feature",
+          fields: [
+            defineField({
+              name: "icon",
+              type: "string",
+              title: "Icon",
+              description: "You can use an emoji as the icon.",
+            }),
+            defineField({
+              name: "title",
+              type: "string",
+              title: "Title",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "description",
+              type: "text",
+              title: "Description",
+              rows: 3,
+            }),
+          ],
+        },
+      ],
+      validation: (Rule) => Rule.required().min(1),
+    }),
+  ],
+  preview: {
+    select: {
+      title: "title",
+      features: "features",
+    },
+    prepare({ title, features }) {
+      return {
+        title: title || "Feature Grid",
+        subtitle: `${features.length} feature(s)`,
+      };
+    },
+  },
+});
