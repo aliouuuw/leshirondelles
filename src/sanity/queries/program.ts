@@ -22,15 +22,7 @@ export const programPageQuery = groq`
     "content": pageBuilder[] {
       ...,
       _type == "achievementsBlock" => {
-        ...,
-        achievements[] {
-          ...,
-          icon {
-            "alt": alt,
-            "metadata": asset->metadata,
-            "lqip": asset->metadata.lqip,
-          }
-        }
+        ...
       },
       _type == "classLevelTiersBlock" => {
         ...,
@@ -44,15 +36,7 @@ export const programPageQuery = groq`
         }
       },
       _type == "featureGridBlock" => {
-        ...,
-        features[]{
-          ...,
-          icon {
-            "alt": alt,
-            "metadata": asset->metadata,
-            "lqip": asset->metadata.lqip,
-          }
-        }
+        ...
       },
       _type == "heroBlock" => {
         ...,
@@ -62,12 +46,7 @@ export const programPageQuery = groq`
           "lqip": asset->metadata.lqip,
         },
         callout {
-          ...,
-          icon {
-            "alt": alt,
-            "metadata": asset->metadata,
-            "lqip": asset->metadata.lqip,
-          }
+          ...
         }
       }
     }

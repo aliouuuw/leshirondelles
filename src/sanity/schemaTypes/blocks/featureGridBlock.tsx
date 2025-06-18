@@ -28,7 +28,6 @@ export default defineType({
         {
           type: "object",
           name: "feature",
-          icon: SanityIcon,
           fields: [
             defineField({
               name: "icon",
