@@ -41,7 +41,7 @@ const iconMap: { [key: string]: React.ReactNode } = {
 };
 
 export default async function ContactPage() {
-  const { data } = await getContactPage();
+  const data = await getContactPage();
 
   if (!data) {
     return <div>Loading...</div>; // Or a custom fallback component

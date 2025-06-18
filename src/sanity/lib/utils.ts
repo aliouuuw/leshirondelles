@@ -1,6 +1,6 @@
 import type { FileAsset, Image as SanityImage } from "sanity";
 import { SanityDocument, PortableTextBlock } from "sanity";
-import { sanityFetch } from "./live";
+// import { sanityFetch } from "./live";
 import {
   homePageQuery,
   aboutPageQuery,
@@ -10,6 +10,7 @@ import {
   allBlogPostsQuery,
   blogPostBySlugQuery,
 } from "../queries";
+import { client } from "./client";
 
 // Define TypeScript interfaces for your Sanity document types
 
@@ -252,32 +253,29 @@ export interface SiteSettings extends SanityDocument {
 // Helper functions to fetch data
 
 export async function getHomePage() {
-  return sanityFetch({ query: homePageQuery });
+  return client.fetch(homePageQuery);
 }
 
 export async function getAboutPage() {
-  return sanityFetch({ query: aboutPageQuery });
+  return client.fetch(aboutPageQuery);
 }
 
 export async function getContactPage() {
-  return sanityFetch({ query: contactPageQuery });
+  return client.fetch(contactPageQuery);
 }
 
 export async function getInscriptionPage() {
-  return sanityFetch({ query: inscriptionPageQuery });
+  return client.fetch(inscriptionPageQuery);
 }
 
 export async function getSiteSettings() {
-  return sanityFetch({ query: siteSettingsQuery });
+  return client.fetch(siteSettingsQuery);
 }
 
 export async function getAllBlogPosts() {
-  return sanityFetch({ query: allBlogPostsQuery });
+  return client.fetch(allBlogPostsQuery);
 }
 
 export async function getBlogPostBySlug(slug: string) {
-  return sanityFetch({
-    query: blogPostBySlugQuery,
-    params: { slug },
-  });
+  return client.fetch(blogPostBySlugQuery, { slug });
 }

@@ -45,7 +45,7 @@ const iconMap: { [key: string]: React.ReactNode } = {
 };
 
 export default async function AdmissionsPage() {
-  const { data } = await getInscriptionPage();
+  const data = await getInscriptionPage();
 
   if (!data) {
     return <div>Loading...</div>; // Or a custom fallback component

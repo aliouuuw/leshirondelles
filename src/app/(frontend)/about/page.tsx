@@ -8,7 +8,7 @@ import { PortableTextBlock } from 'sanity';
 export const revalidate = 60;
 
 export default async function AboutPage() {
-  const { data } = await getAboutPage();
+  const data = await getAboutPage();
 
   if (!data) {
     return <div>Loading...</div>; // Or a custom fallback component
