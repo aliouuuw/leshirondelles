@@ -302,8 +302,8 @@ export interface ClassLevelTiersBlock extends BaseBlock {
   _type: "classLevelTiersBlock";
   levels: {
     _key: string;
-    name: string;
-    age: string;
+    title: string;
+    ageRange: string;
     focus: string;
     highlights: string[];
     image: any;
@@ -324,8 +324,8 @@ export interface ScheduleBlock extends BaseBlock {
   _type: "scheduleBlock";
   rows: {
     _key: string;
-    subject: string;
-    hours: string;
+    label: string;
+    value: string;
   }[];
 }
 

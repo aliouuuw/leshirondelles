@@ -30,9 +30,11 @@ export default defineType({
           fields: [
             defineField({
               name: "icon",
-              type: "string",
+              type: "iconPicker",
               title: "Icon",
-              description: "You can use an emoji as the icon.",
+              options: {
+                providers: ["fa", "lucide"],
+              },
             }),
             defineField({
               name: "title",
