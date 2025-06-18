@@ -151,7 +151,7 @@ export default async function BlogPost({
         {/* Article Content */}
         <section className="py-24 bg-white">
           <div className="container mx-auto px-6 max-w-4xl">
-            <Linkrticle className="prose prose-lg max-w-none">
+            <article className="prose prose-lg max-w-none">
               <div
                 className="text-gray-700 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: blogPost.content }}
@@ -160,7 +160,7 @@ export default async function BlogPost({
                   lineHeight: "1.75",
                 }}
               />
-            </Linkrticle>
+            </article>
 
             {/* Share and Navigation */}
             <div className="mt-16 pt-8 border-t border-gray-200">

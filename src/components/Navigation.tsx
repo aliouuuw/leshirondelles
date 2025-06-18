@@ -3,10 +3,20 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FaChevronUp } from "react-icons/fa";
-import { Codepen, Pen } from "lucide-react";
-import { getProgramNavigation } from "@/sanity/lib/utils";
+import { Codepen } from "lucide-react";
 
-const Navigation = ({ programLinks }: { programLinks: any[],}) => {
+interface LinkType {
+  name: string;
+  href: string;
+  description: string;
+  slug?: string;
+  title?: string;
+  ageRange?: string;
+  age?: string;
+}
+
+const Navigation = ({ programLinks }: { programLinks: LinkType[] }) => {
+  console.log(programLinks);
   const [isProgramsOpen, setIsProgramsOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

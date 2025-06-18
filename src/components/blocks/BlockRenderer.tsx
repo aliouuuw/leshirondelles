@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import React from "react";
 import { PortableText } from "@portabletext/react";
 import { AchievementsBlock } from "./AchievementsBlock";

@@ -1,4 +1,5 @@
-import { groq } from "next-sanity";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { cache } from "react";
 import {
   homePageQuery,
