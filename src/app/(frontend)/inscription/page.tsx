@@ -23,6 +23,7 @@ import {
   type FeeItem,
 } from "@/sanity/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
+import Link from "next/link";
 
 export const revalidate = 60;
 
@@ -104,12 +105,12 @@ export default async function AdmissionsPage() {
                       <p className="text-sm text-gray-700">
                         {data.contactCtaDescription}
                       </p>
-                      <a
+                      <Link
                         href={data.contactButtonLink}
                         className="mt-4 inline-block btn btn-secondary"
                       >
                         {data.contactButtonLabel}
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -285,13 +286,13 @@ export default async function AdmissionsPage() {
             <p className="text-lg mb-10 opacity-90">
               {data.downloadBrochureCtaDescription}
             </p>
-            <a
+            <Link
               href={urlFor(data.brochureFile).url()}
               download
               className="btn btn-white inline-flex items-center gap-3"
             >
               <FaDownload /> {data.brochureLabel || "Télécharger la Brochure"}
-            </a>
+            </Link>
           </div>
         </section>
       )}

@@ -425,15 +425,15 @@ export default function MiddleSchoolPage() {
               supérieures.
             </p>
             <div className="flex flex-wrap justify-center gap-6">
-              <a href="/contact" className="btn btn-accent">
+              <Link href="/contact" className="btn btn-accent">
                 Planifier une Visite
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/admissions"
                 className="font-family-poppins font-medium text-[0.875rem] px-[2rem] py-[1rem] tracking-[0.025em] text-white border-1 border-white hover:underline transition-all duration-300 translate-y-0 hover:translate-y-[-1px]"
               >
                 Dossier d&apos;Inscription
-              </a>
+              </Link>
             </div>
           </div>
         </div>

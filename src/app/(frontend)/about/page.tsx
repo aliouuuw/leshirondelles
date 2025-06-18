@@ -1,9 +1,17 @@
 import React from "react";
 import Image from "next/image";
-import { getAboutPage, type AboutPage, type CoreValue, type HistoryMilestone, type TeamMember, type Button } from "@/sanity/lib/utils";
+import {
+  getAboutPage,
+  type AboutPage,
+  type CoreValue,
+  type HistoryMilestone,
+  type TeamMember,
+  type Button,
+} from "@/sanity/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { PortableText } from "@portabletext/react";
-import { PortableTextBlock } from 'sanity';
+import { PortableTextBlock } from "sanity";
+import Link from "next/link";
 
 export const revalidate = 60;
 
@@ -30,9 +38,7 @@ export default async function AboutPage() {
               {/* Main Heading */}
               <div className="space-y-6">
                 <h1 className="text-5xl lg:text-7xl font-bold leading-none">
-                  <span className="block text-gray-900">
-                    {data.heroTitle}
-                  </span>
+                  <span className="block text-gray-900">{data.heroTitle}</span>
                 </h1>
 
                 <div className="max-w-xl">
@@ -41,8 +47,12 @@ export default async function AboutPage() {
                   </p>
 
                   <div className="flex items-center gap-4 text-sm text-gray-500">
-                    {data.foundedYear && <span>Fondée en {data.foundedYear}</span>}
-                    {data.foundedYear && data.location && <div className="w-1 h-1 bg-gray-400 rounded-full"></div>}
+                    {data.foundedYear && (
+                      <span>Fondée en {data.foundedYear}</span>
+                    )}
+                    {data.foundedYear && data.location && (
+                      <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+                    )}
                     {data.location && <span>{data.location}</span>}
                   </div>
                 </div>
@@ -154,112 +164,115 @@ export default async function AboutPage() {
             {/* Central Timeline Line */}
             <div className="absolute left-1/2 -translate-x-1/2 w-0.5 bg-gray-300 h-full hidden md:block"></div>
             <div className="space-y-16">
-              {data.historyMilestones?.map((milestone: HistoryMilestone, index: number) => (
-                <div
-                  key={index}
-                  className={`flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 ${
-                    index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                  }`}
-                >
-                  <div className="md:w-5/12 text-center md:text-right">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                      {milestone.year}
-                    </h3>
-                    <p className="text-lg font-semibold text-primary mb-3">
-                      {milestone.title}
-                    </p>
-                    <p className="text-gray-700 leading-relaxed">
-                      {milestone.description}
-                    </p>
+              {data.historyMilestones?.map(
+                (milestone: HistoryMilestone, index: number) => (
+                  <div
+                    key={index}
+                    className={`flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 ${
+                      index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                    }`}
+                  >
+                    <div className="md:w-5/12 text-center md:text-right">
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                        {milestone.year}
+                      </h3>
+                      <p className="text-lg font-semibold text-primary mb-3">
+                        {milestone.title}
+                      </p>
+                      <p className="text-gray-700 leading-relaxed">
+                        {milestone.description}
+                      </p>
+                    </div>
+                    <div className="relative w-6 h-6 rounded-full bg-primary flex items-center justify-center z-10 shrink-0">
+                      <div className="w-3 h-3 rounded-full bg-white"></div>
+                    </div>
+                    <div className="md:w-5/12">
+                      {milestone.image && (
+                        <Image
+                          src={urlFor(milestone.image)
+                            .width(600)
+                            .height(400)
+                            .url()}
+                          alt={milestone.title}
+                          width={600}
+                          height={400}
+                          quality={90}
+                          className="rounded-lg shadow-lg"
+                        />
+                      )}
+                    </div>
                   </div>
-                  <div className="relative w-6 h-6 rounded-full bg-primary flex items-center justify-center z-10 shrink-0">
-                    <div className="w-3 h-3 rounded-full bg-white"></div>
-                  </div>
-                  <div className="md:w-5/12">
-                    {milestone.image && (
-                      <Image
-                        src={urlFor(milestone.image).width(600).height(400).url()}
-                        alt={milestone.title}
-                        width={600}
-                        height={400}
-                        quality={90}
-                        className="rounded-lg shadow-lg"
-                      />
-                    )}
-                  </div>
-                </div>
-              ))}
+                )
+              )}
             </div>
           </div>
         </div>
-        </section>
+      </section>
 
-        {/* Leadership Team Section */}
-        <section className="py-24 bg-white">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <div className="section-header-creative mb-16">
-              <div>
-                <h2 className="section-title-creative">{data.leadershipTitle}</h2>
-                <p className="section-description-creative">
-                  {data.leadershipDescription}
-                </p>
-              </div>
+      {/* Leadership Team Section */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <div className="section-header-creative mb-16">
+            <div>
+              <h2 className="section-title-creative">{data.leadershipTitle}</h2>
+              <p className="section-description-creative">
+                {data.leadershipDescription}
+              </p>
             </div>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {data.leadershipTeam?.map((member: TeamMember, index: number) => (
-                <div key={index} className="team-card-creative">
-                  <div className="team-image-creative">
-                    {member.image && (
-                      <Image
-                        src={urlFor(member.image).width(400).height(400).url()}
-                        alt={member.name}
-                        width={400}
-                        height={400}
-                        quality={90}
-                        className="w-full h-full object-cover rounded-md"
-                      />
-                    )}
-                  </div>
-                  <div className="team-content-creative">
-                    <h3 className="team-name-creative">{member.name}</h3>
-                    <p className="team-role-creative">{member.role}</p>
-                    {member.bio && typeof member.bio === 'string' ? (
-                      <p className="team-bio-creative">{member.bio}</p>
-                    ) : member.bio && Array.isArray(member.bio) ? (
-                      <PortableText value={member.bio as PortableTextBlock[]} />
-                    ) : null}
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {data.leadershipTeam?.map((member: TeamMember, index: number) => (
+              <div key={index} className="team-card-creative">
+                <div className="team-image-creative">
+                  {member.image && (
+                    <Image
+                      src={urlFor(member.image).width(400).height(400).url()}
+                      alt={member.name}
+                      width={400}
+                      height={400}
+                      quality={90}
+                      className="w-full h-full object-cover rounded-md"
+                    />
+                  )}
                 </div>
-              ))}
-            </div>
+                <div className="team-content-creative">
+                  <h3 className="team-name-creative">{member.name}</h3>
+                  <p className="team-role-creative">{member.role}</p>
+                  {member.bio && typeof member.bio === "string" ? (
+                    <p className="team-bio-creative">{member.bio}</p>
+                  ) : member.bio && Array.isArray(member.bio) ? (
+                    <PortableText value={member.bio as PortableTextBlock[]} />
+                  ) : null}
+                </div>
+              </div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* CTA Section */}
-        <section className="py-24 bg-primary text-white">
-          <div className="container mx-auto px-6 max-w-6xl text-center">
-            <h2 className="text-4xl font-bold mb-6">
-              {data.ctaSectionTitle}
-            </h2>
-            <p className="text-lg mb-10 opacity-90">
-              {data.ctaSectionDescription}
-            </p>
-            <div className="flex flex-wrap justify-center gap-6">
-              {data.ctaButtons?.map((button: Button, index: number) => (
-                <a
-                  key={index}
-                  href={button.link}
-                  className={`btn ${
-                    button.isPrimary ? "btn-white" : "btn-outline-white"
-                  }`}
-                >
-                  {button.label}
-                </a>
-              ))}
-            </div>
+      {/* CTA Section */}
+      <section className="py-24 bg-primary text-white">
+        <div className="container mx-auto px-6 max-w-6xl text-center">
+          <h2 className="text-4xl font-bold mb-6">{data.ctaSectionTitle}</h2>
+          <p className="text-lg mb-10 opacity-90">
+            {data.ctaSectionDescription}
+          </p>
+          <div className="flex flex-wrap justify-center gap-6">
+            {data.ctaButtons?.map((button: Button, index: number) => (
+              <Link
+                key={index}
+                href={button.link}
+                className={`btn ${
+                  button.isPrimary ? "btn-white" : "btn-outline-white"
+                }`}
+              >
+                {button.label}
+              </Link>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
     </div>
   );
 }

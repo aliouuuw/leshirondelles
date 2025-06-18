@@ -17,6 +17,7 @@ import {
 import { urlFor } from "@/sanity/lib/image";
 import { PortableText } from "@portabletext/react";
 import { PortableTextBlock } from "sanity";
+import Link from "next/link";
 
 // Add this helper function near the top of your file
 const getCategoryTitle = (value: string): string => {
@@ -208,13 +209,13 @@ export default async function HomePage() {
               <p className="hero-description-background">{data.heroSubtitle}</p>
               <div className="hero-actions-background">
                 {data.heroButtons?.map((button: Button, index: number) => (
-                  <a
+                  <Link
                     key={index}
                     href={button.link}
                     className={`btn ${button.isPrimary ? "btn-primary-hero" : "btn-secondary-hero"}`}
                   >
                     {button.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
               <div className="hero-stats-inline">
@@ -296,12 +297,12 @@ export default async function HomePage() {
                         <li key={i}>{highlight}</li>
                       ))}
                     </ul>
-                    <a
+                    <Link
                       href={`/programs/${level.slug.current}`}
                       className="program-link-simplified"
                     >
                       En savoir plus →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -345,9 +346,9 @@ export default async function HomePage() {
                   )}
                 </div>
 
-                <a href="/about" className="btn btn-primary">
+                <Link href="/about" className="btn btn-primary">
                   Découvrir notre histoire
-                </a>
+                </Link>
               </div>
 
               <div className="h-fit flex justify-center md:justify-end items-center">
@@ -426,12 +427,12 @@ export default async function HomePage() {
                     </time>
                     <h3 className="news-title">{data.featuredNews.title}</h3>
                     <p className="news-excerpt">{data.featuredNews.excerpt}</p>
-                    <a
+                    <Link
                       href={`/blog/${data.featuredNews.slug.current}`}
                       className="news-link"
                     >
                       Lire la suite →
-                    </a>
+                    </Link>
                   </div>
                 </article>
               )}
@@ -458,9 +459,9 @@ export default async function HomePage() {
             </div>
 
             <div className="news-cta">
-              <a href="/news" className="btn btn-secondary">
+              <Link href="/news" className="btn btn-secondary">
                 Toutes les actualités
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -531,7 +532,7 @@ export default async function HomePage() {
                     <div className="cta-card-icon">{card.icon}</div>
                     <h3>{card.title}</h3>
                     <p>{card.description}</p>
-                    <a
+                    <Link
                       href={card.link}
                       className={`btn ${
                         card.link === "/contact"
@@ -540,7 +541,7 @@ export default async function HomePage() {
                       }`}
                     >
                       {card.linkLabel}
-                    </a>
+                    </Link>
                   </div>
                 ))}
               </div>

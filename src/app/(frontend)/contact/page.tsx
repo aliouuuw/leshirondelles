@@ -22,6 +22,7 @@ import {
   type DepartmentContact,
 } from "@/sanity/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
+import Link from "next/link";
 
 export const revalidate = 60;
 
@@ -184,7 +185,7 @@ export default async function ContactPage() {
             </div>
             <div className="flex flex-wrap justify-center gap-8">
               {data.socialMediaLinks.map((link: SocialLink, index: number) => (
-                <a
+                <Link
                   key={index}
                   href={link.url}
                   target="_blank"
@@ -196,7 +197,7 @@ export default async function ContactPage() {
                   {link.handle && (
                     <span className="text-sm opacity-75">({link.handle})</span>
                   )}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -235,23 +236,23 @@ export default async function ContactPage() {
                     {contact.email && (
                       <p className="text-gray-700">
                         Email:{" "}
-                        <a
+                        <Link
                           href={`mailto:${contact.email}`}
                           className="text-primary hover:underline"
                         >
                           {contact.email}
-                        </a>
+                        </Link>
                       </p>
                     )}
                     {contact.phone && (
                       <p className="text-gray-700">
                         Téléphone:{" "}
-                        <a
+                        <Link
                           href={`tel:${contact.phone}`}
                           className="text-primary hover:underline"
                         >
                           {contact.phone}
-                        </a>
+                        </Link>
                       </p>
                     )}
                   </div>

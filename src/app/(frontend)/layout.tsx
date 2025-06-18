@@ -75,16 +75,16 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
                 <h4>Navigation</h4>
                 <ul className="footer-links">
                   <li>
-                    <a href="/about">À propos</a>
+                    <Link href="/about">À propos</Link>
                   </li>
                   <li>
-                    <a href="/programs">Programmes</a>
+                    <Link href="/programs">Programmes</Link>
                   </li>
                   <li>
-                    <a href="/contact">Contact</a>
+                    <Link href="/contact">Contact</Link>
                   </li>
                   <li>
-                    <a href="/inscription">Inscription</a>
+                    <Link href="/inscription">Inscription</Link>
                   </li>
                 </ul>
               </div>
@@ -102,16 +102,16 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
                 <h4>Suivez-nous</h4>
                 <ul className="footer-links">
                   <li>
-                    <a href="#">Facebook</a>
+                    <Link href="#">Facebook</Link>
                   </li>
                   <li>
-                    <a href="#">Instagram</a>
+                    <Link href="#">Instagram</Link>
                   </li>
                   <li>
-                    <a href="#">LinkedIn</a>
+                    <Link href="#">LinkedIn</Link>
                   </li>
                   <li>
-                    <a href="https://wa.me/22177XXXXXX">WhatsApp</a>
+                    <Link href="https://wa.me/22177XXXXXX">WhatsApp</Link>
                   </li>
                 </ul>
               </div>

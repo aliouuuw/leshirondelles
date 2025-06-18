@@ -3,6 +3,7 @@ import React from "react";
 import "./styles.css";
 import Image from "next/image";
 import { ImageSlider } from "@/components/ImageSlider";
+import Link from "next/link";
 
 // Helper to render Payload blocks
 // const renderBlock = (block: any, index: number) => {
@@ -144,16 +145,16 @@ const newsEvents = [
 ];
 
 const slideshowImages = [
-    "/images/slideshow/IMG_7671.jpg",
-    "/images/slideshow/IMG_7619.jpg",
-    "/images/slideshow/IMG_7524.jpg",
-    "/images/slideshow/IMG_7513.jpg",
-    "/images/slideshow/IMG_6939.jpg",
-    "/images/slideshow/IMG_6897.jpg",
-    "/images/slideshow/IMG_6809.jpg",
-    "/images/slideshow/ELI_8718.JPG",
-  ];
-  
+  "/images/slideshow/IMG_7671.jpg",
+  "/images/slideshow/IMG_7619.jpg",
+  "/images/slideshow/IMG_7524.jpg",
+  "/images/slideshow/IMG_7513.jpg",
+  "/images/slideshow/IMG_6939.jpg",
+  "/images/slideshow/IMG_6897.jpg",
+  "/images/slideshow/IMG_6809.jpg",
+  "/images/slideshow/ELI_8718.JPG",
+];
+
 export default function HomePage() {
   return (
     <div className="min-h-screen">
@@ -182,12 +183,12 @@ export default function HomePage() {
                 collège.
               </p>
               <div className="hero-actions-background">
-                <a href="/programs" className="btn btn-primary-hero">
+                <Link href="/programs" className="btn btn-primary-hero">
                   Nos programmes
-                </a>
-                <a href="/visit" className="btn btn-secondary-hero">
+                </Link>
+                <Link href="/visit" className="btn btn-secondary-hero">
                   Planifier une visite
-                </a>
+                </Link>
               </div>
               <div className="hero-stats-inline">
                 <div className="hero-stat-inline">
@@ -282,12 +283,12 @@ export default function HomePage() {
                         <li key={i}>{highlight}</li>
                       ))}
                     </ul>
-                    <a
+                    <Link
                       href={`/programs/${level.title.toLowerCase()}`}
                       className="program-link-simplified"
                     >
                       En savoir plus →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -346,9 +347,9 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <a href="/about" className="btn btn-primary">
+                <Link href="/about" className="btn btn-primary">
                   Découvrir notre histoire
-                </a>
+                </Link>
               </div>
 
               <div className="mission-visual-simplified flex justify-center items-center">
@@ -399,9 +400,9 @@ export default function HomePage() {
                     Venez découvrir notre établissement, rencontrer nos équipes
                     pédagogiques et visiter nos installations modernes.
                   </p>
-                  <a href="/news/portes-ouvertes" className="news-link">
+                  <Link href="/news/portes-ouvertes" className="news-link">
                     Lire la suite →
-                  </a>
+                  </Link>
                 </div>
               </article>
 
@@ -420,9 +421,9 @@ export default function HomePage() {
             </div>
 
             <div className="news-cta">
-              <a href="/news" className="btn btn-secondary">
+              <Link href="/news" className="btn btn-secondary">
                 Toutes les actualités
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -490,28 +491,28 @@ export default function HomePage() {
                   <div className="cta-card-icon">📅</div>
                   <h3>Planifier une visite</h3>
                   <p>Découvrez nos installations</p>
-                  <a href="/visit" className="btn btn-primary">
+                  <Link href="/visit" className="btn btn-primary">
                     Réserver
-                  </a>
+                  </Link>
                 </div>
                 <div className="cta-card">
                   <div className="cta-card-icon">📋</div>
                   <h3>Dossier d&apos;inscription</h3>
                   <p>Téléchargez notre brochure</p>
-                  <a href="/brochure" className="btn btn-secondary">
+                  <Link href="/brochure" className="btn btn-secondary">
                     Télécharger
-                  </a>
+                  </Link>
                 </div>
                 <div className="cta-card">
                   <div className="cta-card-icon">💬</div>
                   <h3>Nous contacter</h3>
                   <p>Posez vos questions</p>
-                  <a
+                  <Link
                     href="/contact"
                     className="font-family-poppins font-medium text-[0.875rem] px-[2rem] py-[1rem] tracking-[0.025em] text-white border-1 border-white hover:underline transition-all duration-300 translate-y-0 hover:translate-y-[-1px]"
                   >
                     Discuter
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
