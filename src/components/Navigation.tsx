@@ -4,18 +4,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaChevronUp } from "react-icons/fa";
 import { Codepen } from "lucide-react";
+import { ProgramLink } from "@/sanity/lib/utils";
 
-interface LinkType {
-  name: string;
-  href: string;
-  description: string;
-  slug?: string;
-  title?: string;
-  ageRange?: string;
-  age?: string;
-}
+// interface LinkType {
+//   name: string;
+//   href: string;
+//   description: string;
+//   slug?: string;
+//   title?: string;
+//   ageRange?: string;
+//   age?: string;
+// }
 
-const Navigation = ({ programLinks }: { programLinks: LinkType[] }) => {
+const Navigation = ({ programLinks }: { programLinks: ProgramLink[] }) => {
   const [isProgramsOpen, setIsProgramsOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -362,8 +363,8 @@ const Navigation = ({ programLinks }: { programLinks: LinkType[] }) => {
                   <div className="mt-2 ml-4 space-y-2">
                     {programLinks.map((program) => (
                       <Link
-                        key={program.href}
-                        href={program.href}
+                        key={program.slug}
+                        href={`/programs/${program.slug}`}
                         className="block py-2 text-gray-600 hover:text-gray-900 hover:bg-slate-100/50 px-2 transition-colors"
                         onClick={() => {
                           setIsProgramsOpen(false);
@@ -387,10 +388,10 @@ const Navigation = ({ programLinks }: { programLinks: LinkType[] }) => {
                           </svg>
                           <div>
                             <span className="block font-medium">
-                              {program.name}
+                              {program.title}
                             </span>
                             <span className="block text-sm text-gray-500">
-                              {program.age}
+                              {program.ageRange}
                             </span>
                           </div>
                         </div>
