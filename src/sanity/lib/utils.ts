@@ -35,11 +35,9 @@ async function sanityFetch<T>({
   params?: any;
   tags?: string[];
 }): Promise<T> {
+  // Always bypass Next.js cache so every request asks Sanity for fresh data
   return client.fetch<T>(query, params, {
-    cache: "force-cache",
-    next: {
-      tags,
-    },
+    cache: "no-store",
   });
 }
 
