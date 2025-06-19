@@ -1,6 +1,8 @@
 import { defineType, defineField } from "sanity";
 import { FaListUl } from "react-icons/fa";
 import { SanityIcon } from "../../../components/SanityIcon";
+import * as Lucide from "lucide-react";
+import React from "react";
 
 export default defineType({
   name: "block.featureGrid",
@@ -34,7 +36,28 @@ export default defineType({
               type: "iconPicker",
               title: "Icon",
               options: {
-                providers: ["fa", "lucide"],
+                providers: ["f7", "fa", "lucide"],
+                configurations: [
+                  {
+                    title: "Lucide Icons",
+                    provider: "lucide",
+                    icons: () =>
+                      Object.entries(Lucide).map(([name, Component]) => {
+                        const IconComponent =
+                          Component as React.ComponentType<{
+                            width: string;
+                            height: string;
+                          }>;
+                        return {
+                          name,
+                          component: () => (
+                            <IconComponent width="1.5em" height="1em" />
+                          ),
+                          tags: [name],
+                        };
+                      }),
+                  },
+                ],
               },
             }),
             defineField({

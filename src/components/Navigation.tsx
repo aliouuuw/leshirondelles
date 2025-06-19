@@ -16,7 +16,6 @@ interface LinkType {
 }
 
 const Navigation = ({ programLinks }: { programLinks: LinkType[] }) => {
-  console.log(programLinks);
   const [isProgramsOpen, setIsProgramsOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

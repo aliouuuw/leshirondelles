@@ -5,7 +5,7 @@ import scheduleBlock from "./scheduleBlock";
 import tabbedContentBlock from "./tabbedContentBlock";
 import heroBlock from "./heroBlock";
 
-export default [
+const blocks = [
   achievementsBlock,
   classLevelTiersBlock,
   featureGridBlock,
@@ -13,3 +13,5 @@ export default [
   tabbedContentBlock,
   heroBlock,
 ];
+
+export default blocks;
