@@ -359,32 +359,34 @@ export interface ProgramLink {
   ageRange?: string;
 }
 
-export const getSiteSettings = cache(() => {
+export const getSiteSettings = cache(async (): Promise<SiteSettings | null> => {
   return sanityFetch<SiteSettings>({
     query: siteSettingsQuery,
     tags: ["siteSettings"],
   });
 });
 
-export const getHomePage = cache(() => {
+export const getHomePage = cache(async (): Promise<HomePage | null> => {
   return sanityFetch<HomePage>({
     query: homePageQuery,
-    tags: ["home", "program", "blogPost"],
+    tags: ["homePage"],
   });
 });
 
-export const getInscriptionPage = cache(() => {
-  return sanityFetch<InscriptionPage>({
-    query: inscriptionPageQuery,
-    tags: ["inscriptionPage"],
-  });
-});
+export const getInscriptionPage = cache(
+  async (): Promise<InscriptionPage | null> => {
+    return sanityFetch<InscriptionPage>({
+      query: inscriptionPageQuery,
+      tags: ["inscriptionPage"],
+    });
+  }
+);
 
-export const getAboutPage = cache(() => {
+export const getAboutPage = cache(async (): Promise<AboutPage | null> => {
   return sanityFetch<AboutPage>({ query: aboutPageQuery, tags: ["aboutPage"] });
 });
 
-export const getContactPage = cache(() => {
+export const getContactPage = cache(async (): Promise<ContactPage | null> => {
   return sanityFetch<ContactPage>({
     query: contactPageQuery,
     tags: ["contactPage"],
@@ -405,29 +407,33 @@ export async function getBlogPostPaths() {
   });
 }
 
-export async function getAllBlogPosts() {
-  return await sanityFetch<BlogPost[]>({
+export const getAllBlogPosts = cache(async (): Promise<BlogPost[] | null> => {
+  return sanityFetch<BlogPost[]>({
     query: allBlogPostsQuery,
     tags: ["blogPost"],
   });
-}
+});
 
-export async function getBlogPostBySlug(slug: string) {
-  return await sanityFetch<BlogPost>({
-    query: blogPostBySlugQuery,
-    params: { slug },
-    tags: [`blogPost:${slug}`],
-  });
-}
+export const getBlogPostBySlug = cache(
+  async (slug: string): Promise<BlogPost | null> => {
+    return sanityFetch<BlogPost>({
+      query: blogPostBySlugQuery,
+      params: { slug },
+      tags: [`blogPost:${slug}`],
+    });
+  }
+);
 
-export async function getProgramNavigation(): Promise<ProgramLink[]> {
+export const getProgramNavigation = cache(async (): Promise<ProgramLink[]> => {
   return client.fetch(programNavigationQuery);
-}
+});
 
-export async function getProgramPage(slug: string): Promise<ProgramPage> {
-  return await sanityFetch<ProgramPage>({
-    query: programPageQuery,
-    params: { slug },
-    tags: [`program:${slug}`],
-  });
-}
+export const getProgramPage = cache(
+  async (slug: string): Promise<ProgramPage> => {
+    return sanityFetch<ProgramPage>({
+      query: programPageQuery,
+      params: { slug },
+      tags: [`program:${slug}`],
+    });
+  }
+);
