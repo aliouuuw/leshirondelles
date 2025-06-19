@@ -29,7 +29,6 @@ export interface SanityDocument {
 async function sanityFetch<T>({
   query,
   params = {},
-  tags = [],
 }: {
   query: string;
   params?: any;
